@@ -1,0 +1,45 @@
+{
+  "version": "W-1.0",
+  "created_at": "2026-10-31T10:14:45.523663+00:00",
+  "criteria_evidence": "versuch/vorbereitung/K-VERSIONSNACHWEIS.json",
+  "files": [
+    {
+      "path": "scripts/ledger_study.py",
+      "sha256": "d26ade889d79418e8200d47c1230b8a4fc98eb8ef80c03ebd53de834af559399"
+    },
+    {
+      "path": "scripts/test_ledger_study.py",
+      "sha256": "d822db09caa8de917bed70cfb082bb0f7f222171ed951f894353c98a88af92eb"
+    },
+    {
+      "path": "versuch/auswertung/environment.json",
+      "sha256": "25df2361f50b4f5f140358394b59ef5b385cb889f5788973e7489ab93a896e30"
+    },
+    {
+      "path": "versuch/auswertung/requirements.txt",
+      "sha256": "491426916fbd3a2e94a21605025140b1513d3503fc1aac088d77a208cc8de85b"
+    },
+    {
+      "path": "versuch/auswertung/ruff.toml",
+      "sha256": "f11ba2547b27e9a6eb49cf092b4a0d55fea3bc1a230df188285de791f7e2a3a6"
+    },
+    {
+      "path": "versuch/auswertung/ruff-rules.json",
+      "sha256": "9dd3259779999cbbf7795dc80c5b600b7d5303f3d14d07ce5a7cfcac17fc803a"
+    },
+    {
+      "path": "versuch/auswertung/ruff-settings.txt",
+      "sha256": "d775e1e2421145d4a10da4404a6089339bce44c5e37811adea112276651dc5e0"
+    },
+    {
+      "path": "versuch/auswertung/AUSWERTUNG.md",
+      "sha256": "b3744d0ca0d74a464ebfeb4ea3188f667125705eb5d095b6e293e2b8631c9795"
+    },
+    {
+      "path": "versuch/auswertung/MANUELLE-PRUEFUNG.md",
+      "sha256": "0d4089a24f3aafdd242862890e5ae6c7d91d059ed7558c720dc63eb5da52217f"
+    }
+  ],
+  "implementation_checked_at": "2026-10-31T10:18:53.868900+00:00",
+  "implementation_note": "Implementierung nach technischen Randfallprüfungen abgeschlossen; gleicher vorher festgelegter Regelsatz und Zählkonventionen."
+}

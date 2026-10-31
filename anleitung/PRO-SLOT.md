@@ -23,8 +23,15 @@ Zeitformat mit Zeitzone, z. B. `2026-10-31T14:00:00+01:00` (nur Formatbeispiel).
   method und note. Zulässige Phasen: bedienung_vor, warten, bedienung_nach,
   pruefung, unterbrechung. Keine Lücken als Null interpretieren.
 - phase_complete: je Phase erst true setzen, wenn alle zugehörigen Teilintervalle
-  vollständig erfasst sind. Bei false bleibt ihre Summe in der Auswertung fehlend.
+  am Mac vollständig erfasst sind. Bei false bleibt ihre Summe fehlend.
+  Spätere PC-Zeiten getrennt über pc-template/--pc-times ergänzen; gesicherte
+  Mac-Protokolle und Rückgabehashes niemals nachträglich ändern.
 - deviations und errors: alle Abweichungen/Fehler mit Zeitpunkt und Grund.
+
+Numerische Credit-Zählerstände von 0 sind gültig; null bedeutet fehlend,
+false ist kein Zählerstand. Gesicherte Zuordnung und Nachweise bleiben nötig.
+Die Auswertung erhält status als collection_status und berichtet die spätere
+Codeübernahme unter extraction_status; zeitlimit/produktfehler bleiben sichtbar.
 
 Intervalleintrag (Werte durch tatsächliche Messung ersetzen, keine Fantasiezeiten):
 

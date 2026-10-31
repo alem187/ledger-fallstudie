@@ -1,15 +1,21 @@
 {
-  "version": "W-1.0",
-  "created_at": "2026-10-31T10:14:45.523663+00:00",
+  "version": "W-1.1",
+  "created_at": "2026-10-31T11:12:10.030282+00:00",
+  "prepared_against_commit": "45b020a793a0cc4c16f5d340b3eff0ee3711db43",
   "criteria_evidence": "versuch/vorbereitung/K-VERSIONSNACHWEIS.json",
+  "previous_manifest": {
+    "path": "versuch/auswertung/historie/WERKZEUGSTAND-W-1.0.json",
+    "sha256": "1fb48faaa17e8d7c1bb4219668a53dba68e76ecad73f40362e5658533be1beb5"
+  },
+  "change_note": "Credit-Nullwerte feldgerecht; Statusstufen getrennt; separate importgebundene PC-Zeitintervalle. K-Kern, Ledger-Code/Tests, statischer Regelsatz und Zählkonventionen unverändert.",
   "files": [
     {
       "path": "scripts/ledger_study.py",
-      "sha256": "d26ade889d79418e8200d47c1230b8a4fc98eb8ef80c03ebd53de834af559399"
+      "sha256": "65fd0b0a052613bf007fc47251f7e3bc52b27740fe8454eddd473899d03b7dda"
     },
     {
       "path": "scripts/test_ledger_study.py",
-      "sha256": "d822db09caa8de917bed70cfb082bb0f7f222171ed951f894353c98a88af92eb"
+      "sha256": "45eb8198e2d1d0b7d99d547f11dc2bf0387849a015c73ac4ff5fc88d6f5bcc8f"
     },
     {
       "path": "versuch/auswertung/environment.json",
@@ -33,13 +39,31 @@
     },
     {
       "path": "versuch/auswertung/AUSWERTUNG.md",
-      "sha256": "b3744d0ca0d74a464ebfeb4ea3188f667125705eb5d095b6e293e2b8631c9795"
+      "sha256": "8eb2b36547f3b607abc8da363f92da1bff0aa7bd95d5e01b0f3cc7f1926437dc"
     },
     {
       "path": "versuch/auswertung/MANUELLE-PRUEFUNG.md",
       "sha256": "0d4089a24f3aafdd242862890e5ae6c7d91d059ed7558c720dc63eb5da52217f"
+    },
+    {
+      "path": "scripts/test_ledger_regressions.py",
+      "sha256": "4ca3804cc24f42cd0afb40a31e6b1add106fe0e547c7e9d99660461d4995afcb"
+    },
+    {
+      "path": "scripts/build_ledger_package.py",
+      "sha256": "c3af76248cddd8c30efd21ca27bac256c4488e9b3a21eee82efa461629e0a1a0"
+    },
+    {
+      "path": "versuch/paket/paket.py",
+      "sha256": "5c1836e0dc01b84e5638f0a62eccbd75f1fe5baa6cead58ce702afa807385e18"
+    },
+    {
+      "path": "versuch/paket/MAC.md",
+      "sha256": "e8ed660e6f765f56c3c6a8305bbc2855151114d47dc23b68cb1ea7418a078638"
+    },
+    {
+      "path": "versuch/paket/PRO-SLOT.md",
+      "sha256": "548562dc771c994f86d1b2dbf5cef48f424c0078bb52f6eb1c0ccf5dba911dea"
     }
-  ],
-  "implementation_checked_at": "2026-10-31T10:18:53.868900+00:00",
-  "implementation_note": "Implementierung nach technischen Randfallprüfungen abgeschlossen; gleicher vorher festgelegter Regelsatz und Zählkonventionen."
+  ]
 }

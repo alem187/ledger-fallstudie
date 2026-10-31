@@ -1,7 +1,7 @@
 {
-  "source_commit": "c9204cd861773b17fc3a55b53bf95a6c90e2ccda",
-  "created_at": "2026-10-31T10:18:54.892004+00:00",
-  "source_note": "K-Kern bytegleich im Herkunftscommit. Neue V-/W-/Paketdateien lokaler Arbeitsstand mit Einzelhashes; kein Thesis-Commit behauptet.",
+  "source_commit": "3ecc025778ff9331025ae28f30ced99f58c68403",
+  "created_at": "2026-10-31T11:14:43.477922+00:00",
+  "source_note": "K-Kern unverändert. Herkunftscommit bezeichnet den Thesis-Stand beim Export; Paketdateien und Werkzeugstand sind zusätzlich einzeln gehasht.",
   "files": [
     {
       "path": ".gitattributes",
@@ -14,14 +14,19 @@
       "sha256": "ff1c814b643c7293851db9bd00fde71429efeee7708f700d02fa43b8d1290f3c"
     },
     {
+      "path": "README.md",
+      "bytes": 1511,
+      "sha256": "bae107b6a89fbb228ea7216c4efdc5807f9a3e69b3cc1586102a232d62836c0d"
+    },
+    {
       "path": "anleitung/MAC.md",
-      "bytes": 7311,
-      "sha256": "be1b15ca5c8a38d70fbf8aaa2573e8ccb27948348fae137d08776328a34caafd"
+      "bytes": 7989,
+      "sha256": "e8ed660e6f765f56c3c6a8305bbc2855151114d47dc23b68cb1ea7418a078638"
     },
     {
       "path": "anleitung/PRO-SLOT.md",
-      "bytes": 2207,
-      "sha256": "a56fe0393f5f5476359dd0117364c033b36080d914c81052429ced44c6ca06fd"
+      "bytes": 2663,
+      "sha256": "548562dc771c994f86d1b2dbf5cef48f424c0078bb52f6eb1c0ccf5dba911dea"
     },
     {
       "path": "anleitung/PROMPT.txt",
@@ -30,13 +35,23 @@
     },
     {
       "path": "anleitung/PROTOKOLL-QUELLSTAND.md",
-      "bytes": 13130,
-      "sha256": "254bcdbb529122141887a2d3e7aeffa55e4523ba2295972ee5e7acb0aaed7c77"
+      "bytes": 13601,
+      "sha256": "f568c2d05537194d6fbfa846ef61947edfc1f8e08c09c65b6a137ed2f5df5d2f"
     },
     {
       "path": "auswertung/AUSWERTUNG.md",
-      "bytes": 5992,
-      "sha256": "b3744d0ca0d74a464ebfeb4ea3188f667125705eb5d095b6e293e2b8631c9795"
+      "bytes": 10478,
+      "sha256": "8eb2b36547f3b607abc8da363f92da1bff0aa7bd95d5e01b0f3cc7f1926437dc"
+    },
+    {
+      "path": "auswertung/MANUELLE-PRUEFUNG.md",
+      "bytes": 1814,
+      "sha256": "0d4089a24f3aafdd242862890e5ae6c7d91d059ed7558c720dc63eb5da52217f"
+    },
+    {
+      "path": "auswertung/WERKZEUGSTAND.json",
+      "bytes": 2636,
+      "sha256": "3ce33ec95239ebaa4e7831553d563e1298ec70c6f5ae16b375aca1b6a498f523"
     },
     {
       "path": "auswertung/environment.json",
@@ -44,9 +59,9 @@
       "sha256": "25df2361f50b4f5f140358394b59ef5b385cb889f5788973e7489ab93a896e30"
     },
     {
-      "path": "auswertung/MANUELLE-PRUEFUNG.md",
-      "bytes": 1814,
-      "sha256": "0d4089a24f3aafdd242862890e5ae6c7d91d059ed7558c720dc63eb5da52217f"
+      "path": "auswertung/historie/WERKZEUGSTAND-W-1.0.json",
+      "bytes": 1750,
+      "sha256": "1fb48faaa17e8d7c1bb4219668a53dba68e76ecad73f40362e5658533be1beb5"
     },
     {
       "path": "auswertung/requirements.txt",
@@ -62,11 +77,6 @@
       "path": "auswertung/ruff.toml",
       "bytes": 181,
       "sha256": "f11ba2547b27e9a6eb49cf092b4a0d55fea3bc1a230df188285de791f7e2a3a6"
-    },
-    {
-      "path": "auswertung/WERKZEUGSTAND.json",
-      "bytes": 1750,
-      "sha256": "1fb48faaa17e8d7c1bb4219668a53dba68e76ecad73f40362e5658533be1beb5"
     },
     {
       "path": "eingabe/aufgabenvertrag.md",
@@ -119,9 +129,9 @@
       "sha256": "5c1836e0dc01b84e5638f0a62eccbd75f1fe5baa6cead58ce702afa807385e18"
     },
     {
-      "path": "README.md",
-      "bytes": 1273,
-      "sha256": "696f06b488b47626cdd969d9d8d13a6a8a2fdc4102bf18f65cc782b9cba762c5"
+      "path": "vorlagen/V-MAC.json",
+      "bytes": 870,
+      "sha256": "581501ca16e420d37755fa23394de3cc73b4cf27a04fba663ed970aa507c1837"
     },
     {
       "path": "vorlagen/befunde.csv",
@@ -142,11 +152,6 @@
       "path": "vorlagen/slot.json",
       "bytes": 788,
       "sha256": "d539a57f7ea31608e9b97272d810dd6e20035aed53b7d3f5b889ccbfc72d98dc"
-    },
-    {
-      "path": "vorlagen/V-MAC.json",
-      "bytes": 870,
-      "sha256": "581501ca16e420d37755fa23394de3cc73b4cf27a04fba663ed970aa507c1837"
     },
     {
       "path": "vorlagen/zeitintervalle.csv",

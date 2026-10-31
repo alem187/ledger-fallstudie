@@ -60,7 +60,7 @@ Kontextliste vor jedem Senden sichern. Keine zusätzliche markierte Auswahl.
 
 ## 3. Stand V vor der ersten Anfrage sichern
 
-Kriterienstand K ist in Commit c9204cd nachgewiesen; Werkzeugstand W-1.0
+Kriterienstand K ist in Commit c9204cd nachgewiesen; Werkzeugstand W-1.1
 und Paketdateien sind mit Hashes dokumentiert. Am Mac keine Regeln ändern.
 Nachdem alle tatsächlichen Mac-Angaben/Nachweise ergänzt wurden:
 
@@ -111,6 +111,10 @@ spätere pruefung; Unterbrechungen aus aktiven Intervallen ausschneiden und
 separat kennzeichnen. Falls Extraktion erst am PC erfolgt, Bedienung nach
 am Mac und Extraktionsbedienung am PC getrennt als Teilintervalle erfassen.
 Keine rückwirkende Schätzung. PC-Prüfzeit später tatsächlich messen.
+Die phase_complete-Flags im Mac-Protokoll beschreiben nur die vollständig
+erfasste Arbeit am Mac. PC-Extraktionsbedienung und spätere Prüfung werden
+nach der unveränderten Rückgabe in einer separaten pc-zeiten-Datei ergänzt;
+keine Mac-Rohprotokolle oder Rückgabehashes nachträglich bearbeiten.
 
 ## 5. Privat an den PC zurückgeben
 
@@ -132,3 +136,8 @@ python3 paket.py return ../ledger-nachweise
 Das ZIP einschließlich Rückgabehashes privat an den PC übertragen. Es enthält
 keine automatische Veröffentlichung. Dort gemäß auswertung/AUSWERTUNG.md
 importieren und prüfen. Die ursprünglichen Rohdaten unverändert aufbewahren.
+Am PC nach Import mit `ledger_study.py pc-template` eine importgebundene
+Ergänzung außerhalb der Rohdaten erstellen. Bei der Extraktionsbedienung
+und Prüfung jedes Artefakts die tatsächlichen menschlichen Zeitintervalle
+einschließlich BASE protokollieren und über `evaluate --pc-times` auswerten.
+Vollständige Aufrufe und Feldregeln stehen in auswertung/AUSWERTUNG.md.

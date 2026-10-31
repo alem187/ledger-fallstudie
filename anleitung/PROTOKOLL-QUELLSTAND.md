@@ -1,6 +1,6 @@
 # Protokoll für sechs einmalige Ledger-Refactorings
 
-Fassung V-Vorbereitung 1.0, 31. Oktober 2026. **Keine Anfrage ausgeführt.**
+Fassung V-Vorbereitung 1.1, 31. Oktober 2026. **Keine Anfrage ausgeführt.**
 Durchführung am Arbeits-Mac mit Copilot Business, technische Auswertung am
 Windows-PC. Geplant A Claude Opus 5.5, B GPT-6 Astra; tatsächliche Namen,
 Verfügbarkeit und Optionen bleiben am Mac vor A1 zu bestätigen. Fable entfällt.
@@ -9,7 +9,7 @@ K-Kern in Commit `c9204cd861773b17fc3a55b53bf95a6c90e2ccda` nachgewiesen:
 48/48 Manifestdateien bytegleich geprüft, Nachweis `K-VERSIONSNACHWEIS.json`
 vor zusätzlicher Werkzeugwahl. Historisches Manifest unverändert. Keine
 unabhängige Zeitbeglaubigung oder unabhängige Kriterienvalidierung behauptet.
-Werkzeugstand W-1.0 steht in `../auswertung/`; tatsächliche Mac-Angaben und
+Werkzeugstand W-1.1 steht in `../auswertung/`; tatsächliche Mac-Angaben und
 abschließende Fixierung V bleiben vor der ersten Anfrage erforderlich.
 
 ## Design und Zuordnung
@@ -178,7 +178,7 @@ F02 führt P01–P04 als manuelle Herleitung aus; keine neuen automatisierten
 Tests, keine zusätzlichen LLM-Anfragen zur Prüfung und keine Codeänderung.
 Ein unklarer Codepfad wird nicht durch eine günstigere Ersatzfassung aufgelöst.
 
-## Werkzeugstand W-1.0 nach K-Nachweis
+## Werkzeugstand W-1.1 nach K-Nachweis
 
 Vollständige Auswahl, Konfiguration, Regeln und Kommandos:
 `../auswertung/AUSWERTUNG.md`, `environment.json`, `ruff.toml`,
@@ -189,6 +189,13 @@ Keine Fixes, keine ausgabenspezifischen Ausschlüsse oder neuen Ledger-Tests.
 Gleiche Prüfkommandos für BASE/A1/B1/A2/B2/A3/B3. Rohberichte mit Hashes,
 Exitstatus und Fehlwertgründen; manuelle Kriterien bleiben eigenständig.
 Keine Komplexitäts-, Coverage-, Schuld- oder Siegerkennzahl ergänzt.
+
+Korrektur W-1.1: Credit-Zählerstände von 0 bleiben gültig. Erhebungsstatus,
+Codeübernahme und technische Ergebnisse werden getrennt gespeichert.
+Nach Rückgabe spätere PC-Bedienungs-/Prüfzeiten außerhalb der gesicherten
+Mac-Rohdaten über pc-template und evaluate --pc-times ergänzen, einschließlich
+BASE-Prüfzeit. Herkunft, Zeitzonen, Dauer, Vollständigkeit und Überschneidungen
+werden geprüft. Der alte W-1.0-Nachweis bleibt bytegleich archiviert.
 
 ## Reasoning und Kontext vor A1
 

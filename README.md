@@ -10,6 +10,10 @@ Das private Thesis-Repository bleibt maßgeblich. Keine Versuchsanfrage ausgefü
 5. Sechs Chats A1/B1/A2/B2/A3/B3, erster Antwortstand unverändert, keine Reparaturen.
 6. Nachweise privat per ZIP an den PC; [Auswertung](auswertung/AUSWERTUNG.md).
 
+Werkzeugfassung W-1.1 korrigiert Credit-Nullwerte und trennt Erhebungs-,
+Codeübernahme- und technische Status. Spätere PC-Zeiten werden separat über
+`pc-template` und `evaluate --pc-times` ergänzt; Mac-Rohdaten bleiben unverändert.
+
 **Vor A1 bleiben die tatsächlichen Mac-Angaben und abschließende Fixierung offen.**
 Die PC-Werkzeuge sind festgelegt und mit der unveränderten Ausgangsversion geprüft.
 Geplante Modellnamen sind keine bestätigte Verfügbarkeitszusage.
