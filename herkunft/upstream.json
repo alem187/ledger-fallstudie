@@ -1,0 +1,106 @@
+{
+  "status": "Ausgangsfassung ausgewählt; Aufgabenvertrag und Kriterien-/Versuchs-Freeze offen",
+  "retrieved": "2026-10-30",
+  "files": [
+    {
+      "path": "versuch/vorbereitung/upstream/ledger_stub.py",
+      "repository": "exercism/python",
+      "commit": "6105f6d9d3ef66ce3d5c8f529d2882af3d76b706",
+      "upstream_path": "exercises/practice/ledger/ledger.py",
+      "url": "https://raw.githubusercontent.com/exercism/python/6105f6d9d3ef66ce3d5c8f529d2882af3d76b706/exercises/practice/ledger/ledger.py",
+      "sha256": "fb8e5cd56d1f68e4c2cc87021f4a021e03eccb9a7ae470e921506c822c955ca9"
+    },
+    {
+      "path": "versuch/vorbereitung/upstream/ledger_test.py",
+      "repository": "exercism/python",
+      "commit": "6105f6d9d3ef66ce3d5c8f529d2882af3d76b706",
+      "upstream_path": "exercises/practice/ledger/ledger_test.py",
+      "url": "https://raw.githubusercontent.com/exercism/python/6105f6d9d3ef66ce3d5c8f529d2882af3d76b706/exercises/practice/ledger/ledger_test.py",
+      "sha256": "0774d180e6ed8bd94fdba5c3ba823eb725c5c345da46919e55d7d410a89bb924"
+    },
+    {
+      "path": "versuch/vorbereitung/upstream/candidate_example.py",
+      "repository": "exercism/python",
+      "commit": "6105f6d9d3ef66ce3d5c8f529d2882af3d76b706",
+      "upstream_path": "exercises/practice/ledger/.meta/example.py",
+      "url": "https://raw.githubusercontent.com/exercism/python/6105f6d9d3ef66ce3d5c8f529d2882af3d76b706/exercises/practice/ledger/.meta/example.py",
+      "sha256": "535d832874563747bcc6403ba9ebbfa1f7d32824babacdc3ccb025d82ac649b2"
+    },
+    {
+      "path": "versuch/vorbereitung/upstream/instructions.md",
+      "repository": "exercism/python",
+      "commit": "6105f6d9d3ef66ce3d5c8f529d2882af3d76b706",
+      "upstream_path": "exercises/practice/ledger/.docs/instructions.md",
+      "url": "https://raw.githubusercontent.com/exercism/python/6105f6d9d3ef66ce3d5c8f529d2882af3d76b706/exercises/practice/ledger/.docs/instructions.md",
+      "sha256": "f14fb62c9cec2bc0a0d2ae3064c52585023034f71cc752e92091bc2b38693424"
+    },
+    {
+      "path": "versuch/vorbereitung/upstream/config.json",
+      "repository": "exercism/python",
+      "commit": "6105f6d9d3ef66ce3d5c8f529d2882af3d76b706",
+      "upstream_path": "exercises/practice/ledger/.meta/config.json",
+      "url": "https://raw.githubusercontent.com/exercism/python/6105f6d9d3ef66ce3d5c8f529d2882af3d76b706/exercises/practice/ledger/.meta/config.json",
+      "sha256": "c3509f9d3553aa5ff0992897b031ca111a352a320ba7052e0be1d7374be866a9"
+    },
+    {
+      "path": "versuch/vorbereitung/upstream/tests.toml",
+      "repository": "exercism/python",
+      "commit": "6105f6d9d3ef66ce3d5c8f529d2882af3d76b706",
+      "upstream_path": "exercises/practice/ledger/.meta/tests.toml",
+      "url": "https://raw.githubusercontent.com/exercism/python/6105f6d9d3ef66ce3d5c8f529d2882af3d76b706/exercises/practice/ledger/.meta/tests.toml",
+      "sha256": "ef5317b81f9fb42ef8d336167c8786597ae21db5e940988d476bed1229279c46"
+    },
+    {
+      "path": "versuch/vorbereitung/upstream/LICENSE.python.txt",
+      "repository": "exercism/python",
+      "commit": "6105f6d9d3ef66ce3d5c8f529d2882af3d76b706",
+      "upstream_path": "LICENSE",
+      "url": "https://raw.githubusercontent.com/exercism/python/6105f6d9d3ef66ce3d5c8f529d2882af3d76b706/LICENSE",
+      "sha256": "e52f804e74f0fbd34e8927962319df346166b8194094309a0aee318693df44df"
+    },
+    {
+      "path": "versuch/vorbereitung/upstream/canonical-data.json",
+      "repository": "exercism/problem-specifications",
+      "commit": "ddf514efa0718e129b8a87a07e00481b02efc32b",
+      "upstream_path": "exercises/ledger/canonical-data.json",
+      "url": "https://raw.githubusercontent.com/exercism/problem-specifications/ddf514efa0718e129b8a87a07e00481b02efc32b/exercises/ledger/canonical-data.json",
+      "sha256": "6c184b58d53bd464d059adccdf71de1c6da73534388517d889de6438ebb2fbbe"
+    },
+    {
+      "path": "versuch/vorbereitung/upstream/description.md",
+      "repository": "exercism/problem-specifications",
+      "commit": "ddf514efa0718e129b8a87a07e00481b02efc32b",
+      "upstream_path": "exercises/ledger/description.md",
+      "url": "https://raw.githubusercontent.com/exercism/problem-specifications/ddf514efa0718e129b8a87a07e00481b02efc32b/exercises/ledger/description.md",
+      "sha256": "f14fb62c9cec2bc0a0d2ae3064c52585023034f71cc752e92091bc2b38693424"
+    },
+    {
+      "path": "versuch/vorbereitung/upstream/LICENSE.problem-specifications.txt",
+      "repository": "exercism/problem-specifications",
+      "commit": "ddf514efa0718e129b8a87a07e00481b02efc32b",
+      "upstream_path": "LICENSE",
+      "url": "https://raw.githubusercontent.com/exercism/problem-specifications/ddf514efa0718e129b8a87a07e00481b02efc32b/LICENSE",
+      "sha256": "564d81b4e8fa0a816529287256d25d477106e540682003a718140eb7cf913601"
+    },
+    {
+      "path": "versuch/vorbereitung/upstream/baseline.py",
+      "repository": "exercism/python",
+      "commit": "190407706124bff6fe56d39dba424108982a5bb5",
+      "upstream_path": "exercises/ledger/ledger.py",
+      "url": "https://raw.githubusercontent.com/exercism/python/190407706124bff6fe56d39dba424108982a5bb5/exercises/ledger/ledger.py",
+      "sha256": "5c1f4450fb73297d6a2a519335524e36e6e1a527e9a7b0245238a41a5d28901b"
+    },
+    {
+      "path": "versuch/vorbereitung/upstream/LICENSE.baseline.txt",
+      "repository": "exercism/python",
+      "commit": "190407706124bff6fe56d39dba424108982a5bb5",
+      "upstream_path": "LICENSE",
+      "url": "https://raw.githubusercontent.com/exercism/python/190407706124bff6fe56d39dba424108982a5bb5/LICENSE",
+      "sha256": "b0e62124b5338d60fb9fef89ff8f1617b53a0bc77351b63ebcfbbe6684e29d89"
+    }
+  ],
+  "selected_baseline": "versuch/vorbereitung/upstream/baseline.py",
+  "selected_tests": "versuch/vorbereitung/upstream/ledger_test.py",
+  "provenance_evidence": "versuch/vorbereitung/ursprungsnachweis.json",
+  "compatibility_report": "versuch/vorbereitung/kompatibilitaet.json"
+}

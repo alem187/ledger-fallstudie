@@ -1,0 +1,91 @@
+{
+  "source_commit": "c9204cd861773b17fc3a55b53bf95a6c90e2ccda",
+  "status": "Vorbereitungsexport; Stand V und PC-Auswertung offen",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 8,
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 40,
+      "sha256": "ff1c814b643c7293851db9bd00fde71429efeee7708f700d02fa43b8d1290f3c"
+    },
+    {
+      "path": "anleitung/MAC.md",
+      "bytes": 3787,
+      "sha256": "a7077ada727acd4aa47733f5669dc311e807e29811ca0b92b4423a3c57510563"
+    },
+    {
+      "path": "anleitung/PROMPT.txt",
+      "bytes": 1500,
+      "sha256": "ca886ff09ef142bb4e7cf772db621756bf29fcf826f7907509d0858a2a8264bf"
+    },
+    {
+      "path": "anleitung/PROTOKOLL-QUELLSTAND.md",
+      "bytes": 13024,
+      "sha256": "bb30ea2b59362085084718bf8efcd37c3655e399b167fb8f3f6619d0a11adc90"
+    },
+    {
+      "path": "eingabe/aufgabenvertrag.md",
+      "bytes": 9361,
+      "sha256": "390ebf64a96234f7699bfb947df8725391d59a608bb1a2fddf843c7d37c556d0"
+    },
+    {
+      "path": "eingabe/instructions.md",
+      "bytes": 683,
+      "sha256": "f14fb62c9cec2bc0a0d2ae3064c52585023034f71cc752e92091bc2b38693424"
+    },
+    {
+      "path": "eingabe/ledger.py",
+      "bytes": 10626,
+      "sha256": "5c1f4450fb73297d6a2a519335524e36e6e1a527e9a7b0245238a41a5d28901b"
+    },
+    {
+      "path": "eingabe/ledger_test.py",
+      "bytes": 6078,
+      "sha256": "0774d180e6ed8bd94fdba5c3ba823eb725c5c345da46919e55d7d410a89bb924"
+    },
+    {
+      "path": "herkunft/upstream.json",
+      "bytes": 6089,
+      "sha256": "c5799449a8fdd7ec0bbc7ef3dd5a3881d03e8219f89cf96490be65fcd5d722aa"
+    },
+    {
+      "path": "lizenzen/LICENSE.baseline.txt",
+      "bytes": 1070,
+      "sha256": "b0e62124b5338d60fb9fef89ff8f1617b53a0bc77351b63ebcfbbe6684e29d89"
+    },
+    {
+      "path": "lizenzen/LICENSE.problem-specifications.txt",
+      "bytes": 1087,
+      "sha256": "564d81b4e8fa0a816529287256d25d477106e540682003a718140eb7cf913601"
+    },
+    {
+      "path": "lizenzen/LICENSE.python.txt",
+      "bytes": 1065,
+      "sha256": "e52f804e74f0fbd34e8927962319df346166b8194094309a0aee318693df44df"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1381,
+      "sha256": "3087506d9156bf5f2278c4c931631480be40b17b9cf214ddb0952a0074c968a9"
+    },
+    {
+      "path": "vorlagen/befunde.csv",
+      "bytes": 252,
+      "sha256": "5a8910dccb9a913095030756f6ccb4679a3546af4b306d11dc1a5f61c8b47a7b"
+    },
+    {
+      "path": "vorlagen/durchlaeufe.csv",
+      "bytes": 731,
+      "sha256": "59cda181c5acc87f5053a2e23b54dd7ac4f92d42db043c1aa04fe897ecc7286b"
+    },
+    {
+      "path": "vorlagen/zeitintervalle.csv",
+      "bytes": 119,
+      "sha256": "73dd5f2b2ad163358be12272bf2065ecca73019e449e4cae7c98cf160c28edc6"
+    }
+  ]
+}

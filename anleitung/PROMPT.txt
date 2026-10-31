@@ -1,0 +1,7 @@
+Refaktoriere die beigefügte Python-Implementierung der Exercism-Aufgabe Ledger, um ihre interne Struktur, Lesbarkeit und Wartbarkeit zu verbessern. Erhalte das durch die beigefügte Aufgabenbeschreibung, die vorhandenen Tests und den vorab geklärten Aufgabenvertrag spezifizierte äußere Verhalten sowie die öffentlichen Aufrufe create_entry(date, description, change) und format_entries(currency, locale, entries).
+
+Maßgeblich ist der beigefügte Aufgabenvertrag AV 1.0: Erhalte insbesondere die aufsteigende Sortierung nach Datum, Betrag und vollständiger Beschreibung sowie die Leerung der ursprünglich übergebenen Liste nach erfolgreicher Formatierung ohne Änderung der Eintragsdaten. Diese Studienentscheidungen zur Verhaltenserhaltung gelten auch dort, wo Testnamen eine andere Sortierabsicht nahelegen. Bewahre innerhalb des dort abgegrenzten Eingabebereichs auch die Formatbesonderheiten der Vorlage; führe keine stillschweigenden Fehlerkorrekturen oder neuen Anforderungen für ausgeschlossene Fehlerfälle ein.
+
+Erweitere den fachlichen Funktionsumfang nicht und füge keine externen Abhängigkeiten hinzu. Ändere die Tests nicht. Vermeide nicht erforderliche Wiederholungen und Abstraktionen; zusätzliche Hilfsfunktionen oder Klassen sind zulässig, wenn sie eine klare Aufgabe erfüllen.
+
+Gib genau einen mit python gekennzeichneten Codeblock aus, der den vollständigen Inhalt der refaktorierten ledger.py enthält. Gib außerhalb dieses Codeblocks keine Erläuterungen aus.

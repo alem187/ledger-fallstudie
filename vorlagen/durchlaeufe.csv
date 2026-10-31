@@ -1,0 +1,7 @@
+position,durchlauf,modellplatz,modell_angezeigt,status,absenden_iso,antwortende_iso,bedienung_vor_s,wartezeit_s,bedienung_nach_s,pruefung_s,unterbrechung_s,credits_vor,credits_nach,credit_einheit,verbrauch_zuordenbar,fehlgrund,antwortpfad,codepfad,code_sha256,abweichung,chatkennung,umgebungsstand,nachweispfad,antwort_sha256,credits_vor_iso,credits_nach_iso,credit_quelle,credit_aktualisierung,credit_aufloesung
+1,A1,A,,nicht_durchgefuehrt,,,,,,,,,,,,,,,,,,,,,,,,,
+2,B1,B,,nicht_durchgefuehrt,,,,,,,,,,,,,,,,,,,,,,,,,
+3,A2,A,,nicht_durchgefuehrt,,,,,,,,,,,,,,,,,,,,,,,,,
+4,B2,B,,nicht_durchgefuehrt,,,,,,,,,,,,,,,,,,,,,,,,,
+5,A3,A,,nicht_durchgefuehrt,,,,,,,,,,,,,,,,,,,,,,,,,
+6,B3,B,,nicht_durchgefuehrt,,,,,,,,,,,,,,,,,,,,,,,,,
