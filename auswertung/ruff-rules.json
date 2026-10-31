@@ -1,0 +1,956 @@
+[
+  {
+    "name": "unused-import",
+    "code": "F401",
+    "linter": "Pyflakes",
+    "summary": "`{name}` imported but unused; consider using `importlib.util.find_spec` to test for availability",
+    "message_formats": [
+      "`{name}` imported but unused; consider using `importlib.util.find_spec` to test for availability",
+      "`{name}` imported but unused; consider removing, adding to `__all__`, or using a redundant alias",
+      "`{name}` imported but unused"
+    ],
+    "fix": "Fix is sometimes available.",
+    "fix_availability": "Sometimes",
+    "explanation": "## What it does\nChecks for unused imports.\n\n## Why is this bad?\nUnused imports add a performance overhead at runtime, and risk creating\nimport cycles. They also increase the cognitive load of reading the code.\n\nIf an import statement is used to check for the availability or existence\nof a module, consider using `importlib.util.find_spec` instead.\n\nIf an import statement is used to re-export a symbol as part of a module's\npublic interface, consider using a \"redundant\" import alias, which\ninstructs Ruff (and other tools) to respect the re-export, and avoid\nmarking it as unused, as in:\n\n```python\nfrom module import member as member\n```\n\nAlternatively, you can use `__all__` to declare a symbol as part of the module's\ninterface, as in:\n\n```python\n# __init__.py\nimport some_module\n\n__all__ = [\"some_module\"]\n```\n\n## Preview\nWhen [preview] is enabled (and certain simplifying assumptions\nare met), we analyze all import statements for a given module\nwhen determining whether an import is used, rather than simply\nthe last of these statements. This can result in both different and\nmore import statements being marked as unused.\n\nFor example, if a module consists of\n\n```python\nimport a\nimport a.b\n```\n\nthen both statements are marked as unused under [preview], whereas\nonly the second is marked as unused under stable behavior.\n\nAs another example, if a module consists of\n\n```python\nimport a.b\nimport a\n\na.b.foo()\n```\n\nthen a diagnostic will only be emitted for the first line under [preview],\nwhereas a diagnostic would only be emitted for the second line under\nstable behavior.\n\nNote that this behavior is somewhat subjective and is designed\nto conform to the developer's intuition rather than Python's actual\nexecution. To wit, the statement `import a.b` automatically executes\n`import a`, so in some sense `import a` is _always_ redundant\nin the presence of `import a.b`.\n\n\n## Fix safety\n\nFixes to remove unused imports are safe, except in `__init__.py` files.\n\nApplying fixes to `__init__.py` files is currently in preview. The fix offered depends on the\ntype of the unused import. Ruff will suggest a safe fix to export first-party imports with\neither a redundant alias or, if already present in the file, an `__all__` entry. If multiple\n`__all__` declarations are present, Ruff will not offer a fix. Ruff will suggest an unsafe fix\nto remove third-party and standard library imports -- the fix is unsafe because the module's\ninterface changes.\n\nSee [this FAQ section](https://docs.astral.sh/ruff/faq/#how-does-ruff-determine-which-of-my-imports-are-first-party-third-party-etc)\nfor more details on how Ruff\ndetermines whether an import is first or third-party.\n\n## Example\n\n```python\nimport numpy as np  # unused import\n\n\ndef area(radius):\n    return 3.14 * radius**2\n```\n\nUse instead:\n\n```python\ndef area(radius):\n    return 3.14 * radius**2\n```\n\nTo check the availability of a module, use `importlib.util.find_spec`:\n\n```python\nfrom importlib.util import find_spec\n\nif find_spec(\"numpy\") is not None:\n    print(\"numpy is installed\")\nelse:\n    print(\"numpy is not installed\")\n```\n\n## Options\n- `lint.ignore-init-module-imports`\n- `lint.pyflakes.allowed-unused-imports`\n\n## References\n- [Python documentation: `import`](https://docs.python.org/3/reference/simple_stmts.html#the-import-statement)\n- [Python documentation: `importlib.util.find_spec`](https://docs.python.org/3/library/importlib.html#importlib.util.find_spec)\n- [Typing documentation: interface conventions](https://typing.python.org/en/latest/spec/distributing.html#library-interface-public-and-private-symbols)\n\n[preview]: https://docs.astral.sh/ruff/preview/\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.18"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\unused_import.rs",
+      "line": 145
+    }
+  },
+  {
+    "name": "import-shadowed-by-loop-var",
+    "code": "F402",
+    "linter": "Pyflakes",
+    "summary": "Import `{name}` from {row} shadowed by loop variable",
+    "message_formats": [
+      "Import `{name}` from {row} shadowed by loop variable"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for import bindings that are shadowed by loop variables.\n\n## Why is this bad?\nShadowing an import with loop variables makes the code harder to read and\nreason about, as the identify of the imported binding is no longer clear.\nIt's also often indicative of a mistake, as it's unlikely that the loop\nvariable is intended to be used as the imported binding.\n\nConsider using a different name for the loop variable.\n\n## Example\n```python\nfrom os import path\n\nfor path in files:\n    print(path)\n```\n\nUse instead:\n```python\nfrom os import path\n\n\nfor filename in files:\n    print(filename)\n```\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.44"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\imports.rs",
+      "line": 36
+    }
+  },
+  {
+    "name": "undefined-local-with-import-star",
+    "code": "F403",
+    "linter": "Pyflakes",
+    "summary": "`from {name} import *` used; unable to detect undefined names",
+    "message_formats": [
+      "`from {name} import *` used; unable to detect undefined names"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for the use of wildcard imports.\n\n## Why is this bad?\nWildcard imports (e.g., `from module import *`) make it hard to determine\nwhich symbols are available in the current namespace, and from which module\nthey were imported. They're also discouraged by [PEP 8].\n\n## Example\n```python\nfrom math import *\n\n\ndef area(radius):\n    return pi * radius**2\n```\n\nUse instead:\n```python\nfrom math import pi\n\n\ndef area(radius):\n    return pi * radius**2\n```\n\n[PEP 8]: https://peps.python.org/pep-0008/#imports\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.18"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\imports.rs",
+      "line": 120
+    }
+  },
+  {
+    "name": "late-future-import",
+    "code": "F404",
+    "linter": "Pyflakes",
+    "summary": "`from __future__` imports must occur at the beginning of the file",
+    "message_formats": [
+      "`from __future__` imports must occur at the beginning of the file"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for `__future__` imports that are not located at the beginning of a\nfile.\n\n## Why is this bad?\nImports from `__future__` must be placed the beginning of the file, before any\nother statements (apart from docstrings). The use of `__future__` imports\nelsewhere is invalid and will result in a `SyntaxError`.\n\n## Example\n```python\nfrom pathlib import Path\n\nfrom __future__ import annotations\n```\n\nUse instead:\n```python\nfrom __future__ import annotations\n\nfrom pathlib import Path\n```\n\n## References\n- [Python documentation: Future statements](https://docs.python.org/3/reference/simple_stmts.html#future)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.34"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\imports.rs",
+      "line": 159
+    }
+  },
+  {
+    "name": "undefined-local-with-import-star-usage",
+    "code": "F405",
+    "linter": "Pyflakes",
+    "summary": "`{name}` may be undefined, or defined from star imports",
+    "message_formats": [
+      "`{name}` may be undefined, or defined from star imports"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for names that might be undefined, but may also be defined in a\nwildcard import.\n\n## Why is this bad?\nWildcard imports (e.g., `from module import *`) make it hard to determine\nwhich symbols are available in the current namespace. If a module contains\na wildcard import, and a name in the current namespace has not been\nexplicitly defined or imported, then it's unclear whether the name is\nundefined or was imported by the wildcard import.\n\nIf the name _is_ defined in via a wildcard import, that member should be\nimported explicitly to avoid confusion.\n\nIf the name is _not_ defined in a wildcard import, it should be defined or\nimported.\n\n## Example\n```python\nfrom math import *\n\n\ndef area(radius):\n    return pi * radius**2\n```\n\nUse instead:\n```python\nfrom math import pi\n\n\ndef area(radius):\n    return pi * radius**2\n```\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.44"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\imports.rs",
+      "line": 204
+    }
+  },
+  {
+    "name": "undefined-local-with-nested-import-star-usage",
+    "code": "F406",
+    "linter": "Pyflakes",
+    "summary": "`from {name} import *` only allowed at module level",
+    "message_formats": [
+      "`from {name} import *` only allowed at module level"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nCheck for the use of wildcard imports outside of the module namespace.\n\n## Why is this bad?\nThe use of wildcard imports outside of the module namespace (e.g., within\nfunctions) can lead to confusion, as the import can shadow local variables.\n\nThough wildcard imports are discouraged by [PEP 8], when necessary, they\nshould be placed in the module namespace (i.e., at the top-level of a\nmodule).\n\n## Example\n\n```python\ndef foo():\n    from math import *\n```\n\nUse instead:\n\n```python\nfrom math import *\n\n\ndef foo(): ...\n```\n\n[PEP 8]: https://peps.python.org/pep-0008/#imports\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.37"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\imports.rs",
+      "line": 246
+    }
+  },
+  {
+    "name": "future-feature-not-defined",
+    "code": "F407",
+    "linter": "Pyflakes",
+    "summary": "Future feature `{name}` is not defined",
+    "message_formats": [
+      "Future feature `{name}` is not defined"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for `__future__` imports that are not defined in the current Python\nversion.\n\n## Why is this bad?\nImporting undefined or unsupported members from the `__future__` module is\na `SyntaxError`.\n\n## References\n- [Python documentation: `__future__`](https://docs.python.org/3/library/__future__.html)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.34"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\future_feature_not_defined.rs",
+      "line": 15
+    }
+  },
+  {
+    "name": "percent-format-invalid-format",
+    "code": "F501",
+    "linter": "Pyflakes",
+    "summary": "`%`-format string has invalid format string: {message}",
+    "message_formats": [
+      "`%`-format string has invalid format string: {message}"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for invalid `printf`-style format strings.\n\n## Why is this bad?\nConversion specifiers are required for `printf`-style format strings. These\nspecifiers must contain a `%` character followed by a conversion type.\n\n## Example\n```python\n\"Hello, %\" % \"world\"\n```\n\nUse instead:\n```python\n\"Hello, %s\" % \"world\"\n```\n\n## References\n- [Python documentation: `printf`-style String Formatting](https://docs.python.org/3/library/stdtypes.html#printf-style-string-formatting)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.142"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\strings.rs",
+      "line": 41
+    }
+  },
+  {
+    "name": "percent-format-expected-mapping",
+    "code": "F502",
+    "linter": "Pyflakes",
+    "summary": "`%`-format string expected mapping but got sequence",
+    "message_formats": [
+      "`%`-format string expected mapping but got sequence"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for named placeholders in `printf`-style format strings without\nmapping-type values.\n\n## Why is this bad?\nWhen using named placeholders in `printf`-style format strings, the values\nmust be a map type (such as a dictionary). Otherwise, the expression will\nraise a `TypeError`.\n\n## Example\n```python\n\"%(greeting)s, %(name)s\" % (\"Hello\", \"World\")\n```\n\nUse instead:\n```python\n\"%(greeting)s, %(name)s\" % {\"greeting\": \"Hello\", \"name\": \"World\"}\n```\n\nOr:\n```python\n\"%s, %s\" % (\"Hello\", \"World\")\n```\n\n## References\n- [Python documentation: `printf`-style String Formatting](https://docs.python.org/3/library/stdtypes.html#printf-style-string-formatting)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.142"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\strings.rs",
+      "line": 81
+    }
+  },
+  {
+    "name": "percent-format-expected-sequence",
+    "code": "F503",
+    "linter": "Pyflakes",
+    "summary": "`%`-format string expected sequence but got mapping",
+    "message_formats": [
+      "`%`-format string expected sequence but got mapping"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for uses of mapping-type values in `printf`-style format strings\nwithout named placeholders.\n\n## Why is this bad?\nWhen using mapping-type values (such as `dict`) in `printf`-style format\nstrings, the keys must be named. Otherwise, the expression will raise a\n`TypeError`.\n\n## Example\n```python\n\"%s, %s\" % {\"greeting\": \"Hello\", \"name\": \"World\"}\n```\n\nUse instead:\n```python\n\"%(greeting)s, %(name)s\" % {\"greeting\": \"Hello\", \"name\": \"World\"}\n```\n\nOr:\n```python\n\"%s, %s\" % (\"Hello\", \"World\")\n```\n\n## References\n- [Python documentation: `printf`-style String Formatting](https://docs.python.org/3/library/stdtypes.html#printf-style-string-formatting)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.142"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\strings.rs",
+      "line": 118
+    }
+  },
+  {
+    "name": "percent-format-extra-named-arguments",
+    "code": "F504",
+    "linter": "Pyflakes",
+    "summary": "`%`-format string has unused named argument(s): {message}",
+    "message_formats": [
+      "`%`-format string has unused named argument(s): {message}"
+    ],
+    "fix": "Fix is always available.",
+    "fix_availability": "Always",
+    "explanation": "## What it does\nChecks for unused mapping keys in `printf`-style format strings.\n\n## Why is this bad?\nUnused named placeholders in `printf`-style format strings are unnecessary,\nand likely indicative of a mistake. They should be removed.\n\n## Example\n```python\n\"Hello, %(name)s\" % {\"greeting\": \"Hello\", \"name\": \"World\"}\n```\n\nUse instead:\n```python\n\"Hello, %(name)s\" % {\"name\": \"World\"}\n```\n\n## Fix safety\nThis rule's fix is marked as unsafe for mapping key\ncontaining function calls with potential side effects,\nbecause removing such arguments could change the behavior of the code.\n\nFor example, the fix would be marked as unsafe in the following case:\n```python\n\"Hello, %(name)s\" % {\"greeting\": print(1), \"name\": \"World\"}\n```\n\n## References\n- [Python documentation: `printf`-style String Formatting](https://docs.python.org/3/library/stdtypes.html#printf-style-string-formatting)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.142"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\strings.rs",
+      "line": 158
+    }
+  },
+  {
+    "name": "percent-format-missing-argument",
+    "code": "F505",
+    "linter": "Pyflakes",
+    "summary": "`%`-format string is missing argument(s) for placeholder(s): {message}",
+    "message_formats": [
+      "`%`-format string is missing argument(s) for placeholder(s): {message}"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for named placeholders in `printf`-style format strings that are not\npresent in the provided mapping.\n\n## Why is this bad?\nNamed placeholders that lack a corresponding value in the provided mapping\nwill raise a `KeyError`.\n\n## Example\n```python\n\"%(greeting)s, %(name)s\" % {\"name\": \"world\"}\n```\n\nUse instead:\n```python\n\"Hello, %(name)s\" % {\"name\": \"world\"}\n```\n\n## References\n- [Python documentation: `printf`-style String Formatting](https://docs.python.org/3/library/stdtypes.html#printf-style-string-formatting)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.142"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\strings.rs",
+      "line": 199
+    }
+  },
+  {
+    "name": "percent-format-mixed-positional-and-named",
+    "code": "F506",
+    "linter": "Pyflakes",
+    "summary": "`%`-format string has mixed positional and named placeholders",
+    "message_formats": [
+      "`%`-format string has mixed positional and named placeholders"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for `printf`-style format strings that have mixed positional and\nnamed placeholders.\n\n## Why is this bad?\nPython does not support mixing positional and named placeholders in\n`printf`-style format strings. The use of mixed placeholders will raise a\n`TypeError` at runtime.\n\n## Example\n```python\n\"%s, %(name)s\" % (\"Hello\", {\"name\": \"World\"})\n```\n\nUse instead:\n```python\n\"%s, %s\" % (\"Hello\", \"World\")\n```\n\nOr:\n```python\n\"%(greeting)s, %(name)s\" % {\"greeting\": \"Hello\", \"name\": \"World\"}\n```\n\n## References\n- [Python documentation: `printf`-style String Formatting](https://docs.python.org/3/library/stdtypes.html#printf-style-string-formatting)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.142"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\strings.rs",
+      "line": 240
+    }
+  },
+  {
+    "name": "percent-format-positional-count-mismatch",
+    "code": "F507",
+    "linter": "Pyflakes",
+    "summary": "`%`-format string has {wanted} placeholder(s) but {got} substitution(s)",
+    "message_formats": [
+      "`%`-format string has {wanted} placeholder(s) but {got} substitution(s)"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for `printf`-style format strings that have a mismatch between the\nnumber of positional placeholders and the number of substitution values.\n\n## Why is this bad?\nWhen a `printf`-style format string is provided with too many or too few\nsubstitution values, it will raise a `TypeError` at runtime.\n\n## Example\n```python\n\"%s, %s\" % (\"Hello\", \"world\", \"!\")\n```\n\nUse instead:\n```python\n\"%s, %s\" % (\"Hello\", \"world\")\n```\n\n## References\n- [Python documentation: `printf`-style String Formatting](https://docs.python.org/3/library/stdtypes.html#printf-style-string-formatting)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.142"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\strings.rs",
+      "line": 271
+    }
+  },
+  {
+    "name": "percent-format-star-requires-sequence",
+    "code": "F508",
+    "linter": "Pyflakes",
+    "summary": "`%`-format string `*` specifier requires sequence",
+    "message_formats": [
+      "`%`-format string `*` specifier requires sequence"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for `printf`-style format strings that use the `*` specifier with\nnon-tuple values.\n\n## Why is this bad?\nThe use of the `*` specifier with non-tuple values will raise a\n`TypeError` at runtime.\n\n## Example\n```python\nfrom math import pi\n\n\"%(n).*f\" % {\"n\": (2, pi)}\n```\n\nUse instead:\n```python\nfrom math import pi\n\n\"%.*f\" % (2, pi)  # 3.14\n```\n\n## References\n- [Python documentation: `printf`-style String Formatting](https://docs.python.org/3/library/stdtypes.html#printf-style-string-formatting)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.142"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\strings.rs",
+      "line": 310
+    }
+  },
+  {
+    "name": "percent-format-unsupported-format-character",
+    "code": "F509",
+    "linter": "Pyflakes",
+    "summary": "`%`-format string has unsupported format character `{char}`",
+    "message_formats": [
+      "`%`-format string has unsupported format character `{char}`"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for `printf`-style format strings with invalid format characters.\n\n## Why is this bad?\nIn `printf`-style format strings, the `%` character is used to indicate\nplaceholders. If a `%` character is not followed by a valid format\ncharacter, it will raise a `ValueError` at runtime.\n\n## Example\n```python\n\"Hello, %S\" % \"world\"\n```\n\nUse instead:\n```python\n\"Hello, %s\" % \"world\"\n```\n\n## References\n- [Python documentation: `printf`-style String Formatting](https://docs.python.org/3/library/stdtypes.html#printf-style-string-formatting)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.142"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\strings.rs",
+      "line": 341
+    }
+  },
+  {
+    "name": "string-dot-format-invalid-format",
+    "code": "F521",
+    "linter": "Pyflakes",
+    "summary": "`.format` call has invalid format string: {message}",
+    "message_formats": [
+      "`.format` call has invalid format string: {message}"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for `str.format` calls with invalid format strings.\n\n## Why is this bad?\nInvalid format strings will raise a `ValueError`.\n\n## Example\n```python\n\"{\".format(foo)\n```\n\nUse instead:\n```python\n\"{}\".format(foo)\n```\n\n## References\n- [Python documentation: `str.format`](https://docs.python.org/3/library/stdtypes.html#str.format)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.138"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\strings.rs",
+      "line": 373
+    }
+  },
+  {
+    "name": "string-dot-format-extra-named-arguments",
+    "code": "F522",
+    "linter": "Pyflakes",
+    "summary": "`.format` call has unused named argument(s): {message}",
+    "message_formats": [
+      "`.format` call has unused named argument(s): {message}"
+    ],
+    "fix": "Fix is sometimes available.",
+    "fix_availability": "Sometimes",
+    "explanation": "## What it does\nChecks for `str.format` calls with unused keyword arguments.\n\n## Why is this bad?\nUnused keyword arguments are redundant, and often indicative of a mistake.\nThey should be removed.\n\n## Example\n```python\n\"Hello, {name}\".format(greeting=\"Hello\", name=\"World\")\n```\n\nUse instead:\n```python\n\"Hello, {name}\".format(name=\"World\")\n```\n\n## Fix safety\nThis rule's fix is marked as unsafe if the unused keyword argument\ncontains a function call with potential side effects,\nbecause removing such arguments could change the behavior of the code.\n\nFor example, the fix would be marked as unsafe in the following case:\n```python\n\"Hello, {name}\".format(greeting=print(1), name=\"World\")\n```\n\n## References\n- [Python documentation: `str.format`](https://docs.python.org/3/library/stdtypes.html#str.format)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.139"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\strings.rs",
+      "line": 416
+    }
+  },
+  {
+    "name": "string-dot-format-extra-positional-arguments",
+    "code": "F523",
+    "linter": "Pyflakes",
+    "summary": "`.format` call has unused arguments at position(s): {message}",
+    "message_formats": [
+      "`.format` call has unused arguments at position(s): {message}"
+    ],
+    "fix": "Fix is sometimes available.",
+    "fix_availability": "Sometimes",
+    "explanation": "## What it does\nChecks for `str.format` calls with unused positional arguments.\n\n## Why is this bad?\nUnused positional arguments are redundant, and often indicative of a mistake.\nThey should be removed.\n\n## Example\n```python\n\"Hello, {0}\".format(\"world\", \"!\")\n```\n\nUse instead:\n```python\n\"Hello, {0}\".format(\"world\")\n```\n\n## Fix safety\nThis rule's fix is marked as unsafe if the unused positional argument\ncontains a function call with potential side effects,\nbecause removing such arguments could change the behavior of the code.\n\nFor example, the fix would be marked as unsafe in the following case:\n```python\n\"Hello, {0}\".format(\"world\", print(1))\n```\n\n## References\n- [Python documentation: `str.format`](https://docs.python.org/3/library/stdtypes.html#str.format)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.139"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\strings.rs",
+      "line": 468
+    }
+  },
+  {
+    "name": "string-dot-format-missing-arguments",
+    "code": "F524",
+    "linter": "Pyflakes",
+    "summary": "`.format` call is missing argument(s) for placeholder(s): {message}",
+    "message_formats": [
+      "`.format` call is missing argument(s) for placeholder(s): {message}"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for `str.format` calls with placeholders that are missing arguments.\n\n## Why is this bad?\nIn `str.format` calls, omitting arguments for placeholders will raise a\n`KeyError` at runtime.\n\n## Example\n```python\n\"{greeting}, {name}\".format(name=\"World\")\n```\n\nUse instead:\n```python\n\"{greeting}, {name}\".format(greeting=\"Hello\", name=\"World\")\n```\n\n## References\n- [Python documentation: `str.format`](https://docs.python.org/3/library/stdtypes.html#str.format)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.139"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\strings.rs",
+      "line": 512
+    }
+  },
+  {
+    "name": "string-dot-format-mixing-automatic",
+    "code": "F525",
+    "linter": "Pyflakes",
+    "summary": "`.format` string mixes automatic and manual numbering",
+    "message_formats": [
+      "`.format` string mixes automatic and manual numbering"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for `str.format` calls that mix automatic and manual numbering.\n\n## Why is this bad?\nIn `str.format` calls, mixing automatic and manual numbering will raise a\n`ValueError` at runtime.\n\n## Example\n```python\n\"{0}, {}\".format(\"Hello\", \"World\")\n```\n\nUse instead:\n```python\n\"{0}, {1}\".format(\"Hello\", \"World\")\n```\n\nOr:\n```python\n\"{}, {}\".format(\"Hello\", \"World\")\n```\n\n## References\n- [Python documentation: `str.format`](https://docs.python.org/3/library/stdtypes.html#str.format)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.139"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\strings.rs",
+      "line": 551
+    }
+  },
+  {
+    "name": "f-string-missing-placeholders",
+    "code": "F541",
+    "linter": "Pyflakes",
+    "summary": "f-string without any placeholders",
+    "message_formats": [
+      "f-string without any placeholders"
+    ],
+    "fix": "Fix is always available.",
+    "fix_availability": "Always",
+    "explanation": "## What it does\nChecks for f-strings that do not contain any placeholder expressions.\n\n## Why is this bad?\nf-strings are a convenient way to format strings, but they are not\nnecessary if there are no placeholder expressions to format. In this\ncase, a regular string should be used instead, as an f-string without\nplaceholders can be confusing for readers, who may expect such a\nplaceholder to be present.\n\nAn f-string without any placeholders could also indicate that the\nauthor forgot to add a placeholder expression.\n\n## Example\n```python\nf\"Hello, world!\"\n```\n\nUse instead:\n```python\n\"Hello, world!\"\n```\n\n**Note:** to maintain compatibility with PyFlakes, this rule only flags\nf-strings that are part of an implicit concatenation if _none_ of the\nf-string segments contain placeholder expressions.\n\nFor example:\n\n```python\n# Will not be flagged.\n(\n    f\"Hello,\"\n    f\" {name}!\"\n)\n\n# Will be flagged.\n(\n    f\"Hello,\"\n    f\" World!\"\n)\n```\n\nSee [#10885](https://github.com/astral-sh/ruff/issues/10885) for more.\n\n## References\n- [PEP 498 \u2013 Literal String Interpolation](https://peps.python.org/pep-0498/)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.18"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\f_string_missing_placeholders.rs",
+      "line": 56
+    }
+  },
+  {
+    "name": "multi-value-repeated-key-literal",
+    "code": "F601",
+    "linter": "Pyflakes",
+    "summary": "Dictionary key literal `{name}` repeated",
+    "message_formats": [
+      "Dictionary key literal `{name}` repeated",
+      "Dictionary key literal `{name}` repeated",
+      "Dictionary key literal `{name}` repeated (`{name}` hashes to the same value as `{existing}`)",
+      "Dictionary key literal repeated"
+    ],
+    "fix": "Fix is sometimes available.",
+    "fix_availability": "Sometimes",
+    "explanation": "## What it does\nChecks for dictionary literals that associate multiple values with the\nsame key.\n\n## Why is this bad?\nDictionary keys should be unique. If a key is associated with multiple values,\nthe earlier values will be overwritten. Including multiple values for the\nsame key in a dictionary literal is likely a mistake.\n\n## Example\n```python\nfoo = {\n    \"bar\": 1,\n    \"baz\": 2,\n    \"baz\": 3,\n}\nfoo[\"baz\"]  # 3\n```\n\nUse instead:\n```python\nfoo = {\n    \"bar\": 1,\n    \"baz\": 2,\n}\nfoo[\"baz\"]  # 2\n```\n\n## Fix safety\n\nThis rule's fix is marked as unsafe because removing a repeated dictionary key\nmay delete comments that are attached to the removed key-value pair. This can also change\nthe program's behavior if the value expressions have side effects.\n\n## References\n- [Python documentation: Dictionaries](https://docs.python.org/3/tutorial/datastructures.html#dictionaries)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.30"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\repeated_keys.rs",
+      "line": 51
+    }
+  },
+  {
+    "name": "multi-value-repeated-key-variable",
+    "code": "F602",
+    "linter": "Pyflakes",
+    "summary": "Dictionary key `{name}` repeated",
+    "message_formats": [
+      "Dictionary key `{name}` repeated",
+      "Dictionary key repeated"
+    ],
+    "fix": "Fix is sometimes available.",
+    "fix_availability": "Sometimes",
+    "explanation": "## What it does\nChecks for dictionary keys that are repeated with different values.\n\n## Why is this bad?\nDictionary keys should be unique. If a key is repeated with a different\nvalue, the first values will be overwritten and the key will correspond to\nthe last value. This is likely a mistake.\n\n## Example\n```python\nfoo = {\n    bar: 1,\n    baz: 2,\n    baz: 3,\n}\nfoo[baz]  # 3\n```\n\nUse instead:\n```python\nfoo = {\n    bar: 1,\n    baz: 2,\n}\nfoo[baz]  # 2\n```\n\n## Fix safety\n\nThis rule's fix is marked as unsafe because removing a repeated dictionary key\nmay delete comments that are attached to the removed key-value pair. This can also change\nthe program's behavior if the value expressions have side effects.\n\n## References\n- [Python documentation: Dictionaries](https://docs.python.org/3/tutorial/datastructures.html#dictionaries)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.30"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\repeated_keys.rs",
+      "line": 124
+    }
+  },
+  {
+    "name": "expressions-in-star-assignment",
+    "code": "F621",
+    "linter": "Pyflakes",
+    "summary": "Too many expressions in star-unpacking assignment",
+    "message_formats": [
+      "Too many expressions in star-unpacking assignment"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for the use of too many expressions in starred assignment statements.\n\n## Why is this bad?\nIn assignment statements, starred expressions can be used to unpack iterables.\n\nIn Python 3, no more than `1 << 8` assignments are allowed before a starred\nexpression, and no more than `1 << 24` expressions are allowed after a starred\nexpression.\n\n## References\n- [PEP 3132 \u2013 Extended Iterable Unpacking](https://peps.python.org/pep-3132/)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.32"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\starred_expressions.rs",
+      "line": 20
+    }
+  },
+  {
+    "name": "multiple-starred-expressions",
+    "code": "F622",
+    "linter": "Pyflakes",
+    "summary": "Two starred expressions in assignment",
+    "message_formats": [
+      "Two starred expressions in assignment"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for the use of multiple starred expressions in assignment statements.\n\n## Why is this bad?\nIn assignment statements, starred expressions can be used to unpack iterables.\nIncluding more than one starred expression on the left-hand-side of an\nassignment will cause a `SyntaxError`, as it is unclear which expression\nshould receive the remaining values.\n\n## Example\n```python\n*foo, *bar, baz = (1, 2, 3)\n```\n\n## References\n- [PEP 3132 \u2013 Extended Iterable Unpacking](https://peps.python.org/pep-3132/)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.32"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\starred_expressions.rs",
+      "line": 47
+    }
+  },
+  {
+    "name": "assert-tuple",
+    "code": "F631",
+    "linter": "Pyflakes",
+    "summary": "Assert test is a non-empty tuple, which is always `True`",
+    "message_formats": [
+      "Assert test is a non-empty tuple, which is always `True`"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for `assert` statements that use non-empty tuples as test\nconditions.\n\n## Why is this bad?\nNon-empty tuples are always `True`, so an `assert` statement with a\nnon-empty tuple as its test condition will always pass. This is likely a\nmistake.\n\n## Example\n```python\nassert (some_condition,)\n```\n\nUse instead:\n```python\nassert some_condition\n```\n\n## References\n- [Python documentation: The `assert` statement](https://docs.python.org/3/reference/simple_stmts.html#the-assert-statement)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.28"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\assert_tuple.rs",
+      "line": 30
+    }
+  },
+  {
+    "name": "is-literal",
+    "code": "F632",
+    "linter": "Pyflakes",
+    "summary": "Use `==` to compare constant literals",
+    "message_formats": [
+      "Use `==` to compare constant literals",
+      "Use `!=` to compare constant literals"
+    ],
+    "fix": "Fix is always available.",
+    "fix_availability": "Always",
+    "explanation": "## What it does\nChecks for `is` and `is not` comparisons against literals, like integers,\nstrings, or lists.\n\n## Why is this bad?\nThe `is` and `is not` comparators operate on identity, in that they check\nwhether two objects are the same object. If the objects are not the same\nobject, the comparison will always be `False`. Using `is` and `is not` with\nconstant literals often works \"by accident\", but are not guaranteed to produce\nthe expected result.\n\nAs of Python 3.8, using `is` and `is not` with constant literals will produce\na `SyntaxWarning`.\n\nThis rule will also flag `is` and `is not` comparisons against non-constant\nliterals, like lists, sets, and dictionaries. While such comparisons will\nnot raise a `SyntaxWarning`, they are still likely to be incorrect, as they\nwill compare the identities of the objects instead of their values, which\nwill always evaluate to `False`.\n\nInstead, use `==` and `!=` to compare literals, which will compare the\nvalues of the objects instead of their identities.\n\n## Example\n```python\nx = 200\nif x is 200:\n    print(\"It's 200!\")\n```\n\nUse instead:\n```python\nx = 200\nif x == 200:\n    print(\"It's 200!\")\n```\n\n## References\n- [Python documentation: Identity comparisons](https://docs.python.org/3/reference/expressions.html#is-not)\n- [Python documentation: Value comparisons](https://docs.python.org/3/reference/expressions.html#value-comparisons)\n- [_Why does Python log a SyntaxWarning for \u2018is\u2019 with literals?_ by Adam Johnson](https://adamj.eu/tech/2020/01/21/why-does-python-3-8-syntaxwarning-for-is-literal/)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.39"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\invalid_literal_comparisons.rs",
+      "line": 53
+    }
+  },
+  {
+    "name": "invalid-print-syntax",
+    "code": "F633",
+    "linter": "Pyflakes",
+    "summary": "Use of `>>` is invalid with `print` function",
+    "message_formats": [
+      "Use of `>>` is invalid with `print` function"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for `print` statements that use the `>>` syntax.\n\n## Why is this bad?\nIn Python 2, the `print` statement can be used with the `>>` syntax to\nprint to a file-like object. This `print >> sys.stderr` syntax no\nlonger exists in Python 3, where `print` is only a function, not a\nstatement.\n\nInstead, use the `file` keyword argument to the `print` function, the\n`sys.stderr.write` function, or the `logging` module.\n\n## Example\n```python\nfrom __future__ import print_function\nimport sys\n\nprint >> sys.stderr, \"Hello, world!\"\n```\n\nUse instead:\n```python\nprint(\"Hello, world!\", file=sys.stderr)\n```\n\nOr:\n```python\nimport sys\n\nsys.stderr.write(\"Hello, world!\\n\")\n```\n\nOr:\n```python\nimport logging\n\nlogging.error(\"Hello, world!\")\n```\n\n## References\n- [Python documentation: `print`](https://docs.python.org/3/library/functions.html#print)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.39"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\invalid_print_syntax.rs",
+      "line": 49
+    }
+  },
+  {
+    "name": "if-tuple",
+    "code": "F634",
+    "linter": "Pyflakes",
+    "summary": "If test is a tuple, which is always `True`",
+    "message_formats": [
+      "If test is a tuple, which is always `True`"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for `if` statements that use non-empty tuples as test conditions.\n\n## Why is this bad?\nNon-empty tuples are always `True`, so an `if` statement with a non-empty\ntuple as its test condition will always pass. This is likely a mistake.\n\n## Example\n```python\nif (False,):\n    print(\"This will always run\")\n```\n\nUse instead:\n```python\nif False:\n    print(\"This will never run\")\n```\n\n## References\n- [Python documentation: The `if` statement](https://docs.python.org/3/reference/compound_stmts.html#the-if-statement)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.18"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\if_tuple.rs",
+      "line": 31
+    }
+  },
+  {
+    "name": "break-outside-loop",
+    "code": "F701",
+    "linter": "Pyflakes",
+    "summary": "`break` outside loop",
+    "message_formats": [
+      "`break` outside loop"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for `break` statements outside of loops.\n\n## Why is this bad?\nThe use of a `break` statement outside of a `for` or `while` loop will\nraise a `SyntaxError`.\n\n## Example\n```python\ndef foo():\n    break\n```\n\n## References\n- [Python documentation: `break`](https://docs.python.org/3/reference/simple_stmts.html#the-break-statement)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.36"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\break_outside_loop.rs",
+      "line": 20
+    }
+  },
+  {
+    "name": "continue-outside-loop",
+    "code": "F702",
+    "linter": "Pyflakes",
+    "summary": "`continue` not properly in loop",
+    "message_formats": [
+      "`continue` not properly in loop"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for `continue` statements outside of loops.\n\n## Why is this bad?\nThe use of a `continue` statement outside of a `for` or `while` loop will\nraise a `SyntaxError`.\n\n## Example\n```python\ndef foo():\n    continue  # SyntaxError\n```\n\n## References\n- [Python documentation: `continue`](https://docs.python.org/3/reference/simple_stmts.html#the-continue-statement)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.36"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\continue_outside_loop.rs",
+      "line": 20
+    }
+  },
+  {
+    "name": "yield-outside-function",
+    "code": "F704",
+    "linter": "Pyflakes",
+    "summary": "`{keyword}` statement outside of a function",
+    "message_formats": [
+      "`{keyword}` statement outside of a function"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for `yield`, `yield from`, and `await` usages outside of functions.\n\n## Why is this bad?\nThe use of `yield`, `yield from`, or `await` outside of a function will\nraise a `SyntaxError`.\n\n## Example\n```python\nclass Foo:\n    yield 1\n```\n\n## Notebook behavior\nAs an exception, `await` is allowed at the top level of a Jupyter notebook\n(see: [autoawait]).\n\n## References\n- [Python documentation: `yield`](https://docs.python.org/3/reference/simple_stmts.html#the-yield-statement)\n\n[autoawait]: https://ipython.readthedocs.io/en/stable/interactive/autoawait.html\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.22"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\yield_outside_function.rs",
+      "line": 56
+    }
+  },
+  {
+    "name": "return-outside-function",
+    "code": "F706",
+    "linter": "Pyflakes",
+    "summary": "`return` statement outside of a function/method",
+    "message_formats": [
+      "`return` statement outside of a function/method"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for `return` statements outside of functions.\n\n## Why is this bad?\nThe use of a `return` statement outside of a function will raise a\n`SyntaxError`.\n\n## Example\n```python\nclass Foo:\n    return 1\n```\n\n## References\n- [Python documentation: `return`](https://docs.python.org/3/reference/simple_stmts.html#the-return-statement)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.18"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\return_outside_function.rs",
+      "line": 20
+    }
+  },
+  {
+    "name": "default-except-not-last",
+    "code": "F707",
+    "linter": "Pyflakes",
+    "summary": "An `except` block as not the last exception handler",
+    "message_formats": [
+      "An `except` block as not the last exception handler"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for `except` blocks that handle all exceptions, but are not the last\n`except` block in a `try` statement.\n\n## Why is this bad?\nWhen an exception is raised within a `try` block, the `except` blocks are\nevaluated in order, and the first matching block is executed. If an `except`\nblock handles all exceptions, but isn't the last block, Python will raise a\n`SyntaxError`, as the following blocks would never be executed.\n\n## Example\n```python\ndef reciprocal(n):\n    try:\n        reciprocal = 1 / n\n    except:\n        print(\"An exception occurred.\")\n    except ZeroDivisionError:\n        print(\"Cannot divide by zero.\")\n    else:\n        return reciprocal\n```\n\nUse instead:\n```python\ndef reciprocal(n):\n    try:\n        reciprocal = 1 / n\n    except ZeroDivisionError:\n        print(\"Cannot divide by zero.\")\n    except:\n        print(\"An exception occurred.\")\n    else:\n        return reciprocal\n```\n\n## References\n- [Python documentation: `except` clause](https://docs.python.org/3/reference/compound_stmts.html#except-clause)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.28"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\default_except_not_last.rs",
+      "line": 47
+    }
+  },
+  {
+    "name": "forward-annotation-syntax-error",
+    "code": "F722",
+    "linter": "Pyflakes",
+    "summary": "Syntax error in forward annotation: {parse_error}",
+    "message_formats": [
+      "Syntax error in forward annotation: {parse_error}"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for forward annotations that include invalid syntax.\n\n\n## Why is this bad?\nIn Python, type annotations can be quoted as strings literals to enable\nreferences to types that have not yet been defined, known as \"forward\nreferences\".\n\nHowever, these quoted annotations must be valid Python expressions. The use\nof invalid syntax in a quoted annotation won't raise a `SyntaxError`, but\nwill instead raise an error when type checking is performed.\n\n## Example\n\n```python\ndef foo() -> \"/\": ...\n```\n\n## References\n- [PEP 563 \u2013 Postponed Evaluation of Annotations](https://peps.python.org/pep-0563/)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.39"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\forward_annotation_syntax_error.rs",
+      "line": 26
+    }
+  },
+  {
+    "name": "redefined-while-unused",
+    "code": "F811",
+    "linter": "Pyflakes",
+    "summary": "Redefinition of unused `{name}` from {row}",
+    "message_formats": [
+      "Redefinition of unused `{name}` from {row}"
+    ],
+    "fix": "Fix is sometimes available.",
+    "fix_availability": "Sometimes",
+    "explanation": "## What it does\nChecks for variable definitions that redefine (or \"shadow\") unused\nvariables.\n\n## Why is this bad?\nRedefinitions of unused names are unnecessary and often indicative of a\nmistake.\n\n## Example\n```python\nimport foo\nimport bar\nimport foo  # Redefinition of unused `foo` from line 1\n```\n\nUse instead:\n```python\nimport foo\nimport bar\n```\n\n## Options\n\nThis rule ignores dummy variables, as determined by:\n\n- `lint.dummy-variable-rgx`\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.171"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\redefined_while_unused.rs",
+      "line": 39
+    }
+  },
+  {
+    "name": "undefined-name",
+    "code": "F821",
+    "linter": "Pyflakes",
+    "summary": "Undefined name `{name}`. {tip}",
+    "message_formats": [
+      "Undefined name `{name}`. {tip}",
+      "Undefined name `{name}`"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for uses of undefined names.\n\n## Why is this bad?\nAn undefined name is likely to raise `NameError` at runtime.\n\n## Example\n```python\ndef double():\n    return n * 2  # raises `NameError` if `n` is undefined when `double` is called\n```\n\nUse instead:\n```python\ndef double(n):\n    return n * 2\n```\n\n## Options\n- [`target-version`]: Can be used to configure which symbols Ruff will understand\n  as being available in the `builtins` namespace.\n\n## References\n- [Python documentation: Naming and binding](https://docs.python.org/3/reference/executionmodel.html#naming-and-binding)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.20"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\undefined_name.rs",
+      "line": 29
+    }
+  },
+  {
+    "name": "undefined-export",
+    "code": "F822",
+    "linter": "Pyflakes",
+    "summary": "Undefined name `{name}` in `__all__`",
+    "message_formats": [
+      "Undefined name `{name}` in `__all__`"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for undefined names in `__all__`.\n\n## Why is this bad?\nIn Python, the `__all__` variable is used to define the names that are\nexported when a module is imported as a wildcard (e.g.,\n`from foo import *`). The names in `__all__` must be defined in the module,\nbut are included as strings.\n\nIncluding an undefined name in `__all__` is likely to raise `NameError` at\nruntime, when the module is imported.\n\nIn [preview], this rule will flag undefined names in `__init__.py` file,\neven if those names implicitly refer to other modules in the package. Users\nthat rely on implicit exports should disable this rule in `__init__.py`\nfiles via [`lint.per-file-ignores`].\n\n## Example\n```python\nfrom foo import bar\n\n\n__all__ = [\"bar\", \"baz\"]  # undefined name `baz` in `__all__`\n```\n\nUse instead:\n```python\nfrom foo import bar, baz\n\n\n__all__ = [\"bar\", \"baz\"]\n```\n\n## References\n- [Python documentation: `__all__`](https://docs.python.org/3/tutorial/modules.html#importing-from-a-package)\n\n[preview]: https://docs.astral.sh/ruff/preview/\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.25"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\undefined_export.rs",
+      "line": 42
+    }
+  },
+  {
+    "name": "undefined-local",
+    "code": "F823",
+    "linter": "Pyflakes",
+    "summary": "Local variable `{name}` referenced before assignment",
+    "message_formats": [
+      "Local variable `{name}` referenced before assignment"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for undefined local variables.\n\n## Why is this bad?\nReferencing a local variable before it has been assigned will raise\nan `UnboundLocalError` at runtime.\n\n## Example\n```python\nx = 1\n\n\ndef foo():\n    x += 1\n```\n\nUse instead:\n```python\nx = 1\n\n\ndef foo():\n    global x\n    x += 1\n```\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.24"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\undefined_local.rs",
+      "line": 35
+    }
+  },
+  {
+    "name": "unused-variable",
+    "code": "F841",
+    "linter": "Pyflakes",
+    "summary": "Local variable `{name}` is assigned to but never used",
+    "message_formats": [
+      "Local variable `{name}` is assigned to but never used"
+    ],
+    "fix": "Fix is sometimes available.",
+    "fix_availability": "Sometimes",
+    "explanation": "## What it does\nChecks for the presence of unused variables in function scopes.\n\n## Why is this bad?\nA variable that is defined but not used is likely a mistake, and should\nbe removed to avoid confusion.\n\nIf a variable is intentionally defined-but-not-used, it should be\nprefixed with an underscore, or some other value that adheres to the\n[`lint.dummy-variable-rgx`] pattern.\n\n## Example\n```python\ndef foo():\n    x = 1\n    y = 2\n    return x\n```\n\nUse instead:\n```python\ndef foo():\n    x = 1\n    return x\n```\n\n## Fix safety\n\nThis rule's fix is marked as unsafe because removing an unused variable assignment may\ndelete comments that are attached to the assignment.\n\n## See also\n\nThis rule does not apply to bindings in unpacked assignments (e.g. `x, y = 1, 2`). See\n[`unused-unpacked-variable`][RUF059] for this case.\n\n## Options\n- `lint.dummy-variable-rgx`\n\n[RUF059]: https://docs.astral.sh/ruff/rules/unused-unpacked-variable/\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.22"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\unused_variable.rs",
+      "line": 55
+    }
+  },
+  {
+    "name": "unused-annotation",
+    "code": "F842",
+    "linter": "Pyflakes",
+    "summary": "Local variable `{name}` is annotated but never used",
+    "message_formats": [
+      "Local variable `{name}` is annotated but never used"
+    ],
+    "fix": "Fix is not available.",
+    "fix_availability": "None",
+    "explanation": "## What it does\nChecks for local variables that are annotated but never used.\n\n## Why is this bad?\nAnnotations are used to provide type hints to static type checkers. If a\nvariable is annotated but never used, the annotation is unnecessary.\n\n## Example\n```python\ndef foo():\n    bar: int\n```\n\n## Options\n\nThis rule ignores dummy variables, as determined by:\n\n- `lint.dummy-variable-rgx`\n\n## References\n- [PEP 484 \u2013 Type Hints](https://peps.python.org/pep-0484/)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.172"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\unused_annotation.rs",
+      "line": 29
+    }
+  },
+  {
+    "name": "raise-not-implemented",
+    "code": "F901",
+    "linter": "Pyflakes",
+    "summary": "`raise NotImplemented` should be `raise NotImplementedError`",
+    "message_formats": [
+      "`raise NotImplemented` should be `raise NotImplementedError`"
+    ],
+    "fix": "Fix is sometimes available.",
+    "fix_availability": "Sometimes",
+    "explanation": "## What it does\nChecks for `raise` statements that raise `NotImplemented`.\n\n## Why is this bad?\n`NotImplemented` is an exception used by binary special methods to indicate\nthat an operation is not implemented with respect to a particular type.\n\n`NotImplemented` should not be raised directly. Instead, raise\n`NotImplementedError`, which is used to indicate that the method is\nabstract or not implemented in the derived class.\n\n## Example\n```python\nclass Foo:\n    def bar(self):\n        raise NotImplemented\n```\n\nUse instead:\n```python\nclass Foo:\n    def bar(self):\n        raise NotImplementedError\n```\n\n## References\n- [Python documentation: `NotImplemented`](https://docs.python.org/3/library/constants.html#NotImplemented)\n- [Python documentation: `NotImplementedError`](https://docs.python.org/3/library/exceptions.html#NotImplementedError)\n",
+    "preview": false,
+    "status": {
+      "Stable": {
+        "since": "v0.0.18"
+      }
+    },
+    "source_location": {
+      "file": "crates\\ruff_linter\\src\\rules\\pyflakes\\rules\\raise_not_implemented.rs",
+      "line": 37
+    }
+  }
+]

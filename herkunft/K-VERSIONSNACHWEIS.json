@@ -1,0 +1,344 @@
+{
+  "verified_at": "2026-10-31T09:59:51.120234+00:00",
+  "commit": "c9204cd861773b17fc3a55b53bf95a6c90e2ccda",
+  "manifest_sha256": "6f22b351ca609bf965f00959929751f9a7471f2a404b33c97035b9c18ced8a38",
+  "files": [
+    {
+      "path": "chapters/03_bewertungsschema.tex",
+      "scope": "K_core",
+      "sha256": "abb13051485cd3b9b6014611c624be295bac428153b21e13fd3a82aa17cbb8dd",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "docs/BEWERTUNGSMATRIX_LEDGER.md",
+      "scope": "K_core",
+      "sha256": "31d069b69bb5900c2294a4076bb3dc8113fc47a6f6df178ea5b0ab0f97e782c5",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "docs/LITERATURPRUEFUNG_LEDGER.md",
+      "scope": "K_core",
+      "sha256": "ecde8731c3394d5512551af1fb26c59449beb00c93ca57d933e2ed0c6655cc02",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "quellen/3408877.3432362.pdf",
+      "scope": "K_core",
+      "sha256": "0144de29596fee9711993ea833d847ee211d7740a858aae024e0c12f50c325e6",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "quellen/A_Methodology_for_Collecting_Valid_Software_Engineering_Data.pdf",
+      "scope": "K_core",
+      "sha256": "524ed9c089774ffdc6fa56bfe86a9e059a7ec2a8830fa8baf8b04659a67e0c9a",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "quellen/alomar2021.pdf",
+      "scope": "K_core",
+      "sha256": "5cc237dde5e4fe9c74f6741c695f4cfde8838368623e5fb4d7f05761f4062c7c",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "quellen/Are_Static_Analysis_Violations_Really_Fixed_A_Closer_Look_at_Realistic_Usage_of_SonarQube.pdf",
+      "scope": "K_core",
+      "sha256": "d3ac777be0f8ea5b06c9af3974558d4f2e105bc30a93ec559e01042462e3ab98",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "quellen/buse2010.pdf",
+      "scope": "K_core",
+      "sha256": "7eb4313d2a3d2f090de5eab362970b9ac69b7da205b8dac32f7d299a6644fac9",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "quellen/ganesh2013.pdf",
+      "scope": "K_core",
+      "sha256": "794bc4e779e5a52b741ffb7a018b3c2b2fab10eca484b61a0ae1a00264beed58",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "quellen/inozemtseva2014.pdf",
+      "scope": "K_core",
+      "sha256": "e56c4dbe3f2255ecd774b1288c60c1cb68893f3b31b7fca39c0156672fdb8317",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "quellen/kapser2006.pdf",
+      "scope": "K_core",
+      "sha256": "6f306d544aab87f8b2c7f4e9d8d1c3ad6427f3ba51a265a6ca86a52ae4cfb668",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "quellen/kimRefactoring2014.pdf",
+      "scope": "K_core",
+      "sha256": "645c9ed855675300e04b2f831b64a7a7b2a1623db77dbd77d3aeef6c1a0477b5",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "quellen/kruchten2012.pdf",
+      "scope": "K_core",
+      "sha256": "882061b4909d7e1400afce0326923ef685df9568058ff24c958eb97c230ba910",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "quellen/library-manifest.json",
+      "scope": "K_core",
+      "sha256": "27d75b6f2f6fb6ce6eac19dfd1dad227e0fa4bdc2803f0f803dd45990c636251",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "quellen/mccabe1976.pdf",
+      "scope": "K_core",
+      "sha256": "be2ac1035940dfc7fa231e23b33bfa3c2f3e3d8ef3112e20cf92a35a7af537f6",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "quellen/mens2004.pdf",
+      "scope": "K_core",
+      "sha256": "fa943f4f4c6e7970e9002ba08e4af6da0fbe226e69e180ba389ef0dc1892ef86",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "quellen/sadowski2018.pdf",
+      "scope": "K_core",
+      "sha256": "49214856aee5f40bb8fff390d4f5643a06d03381d47fc69f1dee17d9092c21cf",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "quellen/scalabrino2021.pdf",
+      "scope": "K_core",
+      "sha256": "ed0222a55737d8f9f1240a80a4e3a9737ed0dfdff0542fd228200de6cfc123a4",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "quellen/silva2016.pdf",
+      "scope": "K_core",
+      "sha256": "208734933aba225a8e76188b6f63fa6689197efa8fc74bf9a16e9ef7ae513565",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "quellen/suryanarayana2015.pdf",
+      "scope": "K_core",
+      "sha256": "659725e217f43970b819805b5595c52edbc7ba0e0f4584dd65cf75b627fcebf8",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "quellen/yamashita2013.pdf",
+      "scope": "K_core",
+      "sha256": "dad35db5f80eedc7291ff38fdfb2a81b71960c6877c947c829ce002f0b002057",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "references.bib",
+      "scope": "K_core",
+      "sha256": "8eb2be82beccfd603bb702edfd42e1f00ab3e53d753a3d8d5fe47cbd54675f72",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "versuch/vorbereitung/aufgabenvertrag.md",
+      "scope": "K_core",
+      "sha256": "390ebf64a96234f7699bfb947df8725391d59a608bb1a2fddf843c7d37c556d0",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "versuch/vorbereitung/AUSGANGSBASIS.md",
+      "scope": "K_core",
+      "sha256": "eaef22f13d75288a277ea8218dd1846b96353d597da2233b85b984e5a2721260",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "versuch/vorbereitung/herkunft.json",
+      "scope": "K_core",
+      "sha256": "c5799449a8fdd7ec0bbc7ef3dd5a3881d03e8219f89cf96490be65fcd5d722aa",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "versuch/vorbereitung/kompatibilitaet.json",
+      "scope": "K_core",
+      "sha256": "1d6880602cc004b8a186dfea4e94e344b195af89880bb9f1bfa7d78e3c008dfe",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "versuch/vorbereitung/upstream/baseline.py",
+      "scope": "K_core",
+      "sha256": "5c1f4450fb73297d6a2a519335524e36e6e1a527e9a7b0245238a41a5d28901b",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "versuch/vorbereitung/upstream/candidate_example.py",
+      "scope": "K_core",
+      "sha256": "535d832874563747bcc6403ba9ebbfa1f7d32824babacdc3ccb025d82ac649b2",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "versuch/vorbereitung/upstream/canonical-data.json",
+      "scope": "K_core",
+      "sha256": "6c184b58d53bd464d059adccdf71de1c6da73534388517d889de6438ebb2fbbe",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "versuch/vorbereitung/upstream/config.json",
+      "scope": "K_core",
+      "sha256": "c3509f9d3553aa5ff0992897b031ca111a352a320ba7052e0be1d7374be866a9",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "versuch/vorbereitung/upstream/description.md",
+      "scope": "K_core",
+      "sha256": "f14fb62c9cec2bc0a0d2ae3064c52585023034f71cc752e92091bc2b38693424",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "versuch/vorbereitung/upstream/instructions.md",
+      "scope": "K_core",
+      "sha256": "f14fb62c9cec2bc0a0d2ae3064c52585023034f71cc752e92091bc2b38693424",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "versuch/vorbereitung/upstream/ledger_stub.py",
+      "scope": "K_core",
+      "sha256": "fb8e5cd56d1f68e4c2cc87021f4a021e03eccb9a7ae470e921506c822c955ca9",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "versuch/vorbereitung/upstream/ledger_test.py",
+      "scope": "K_core",
+      "sha256": "0774d180e6ed8bd94fdba5c3ba823eb725c5c345da46919e55d7d410a89bb924",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "versuch/vorbereitung/upstream/LICENSE.baseline.txt",
+      "scope": "K_core",
+      "sha256": "b0e62124b5338d60fb9fef89ff8f1617b53a0bc77351b63ebcfbbe6684e29d89",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "versuch/vorbereitung/upstream/LICENSE.problem-specifications.txt",
+      "scope": "K_core",
+      "sha256": "564d81b4e8fa0a816529287256d25d477106e540682003a718140eb7cf913601",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "versuch/vorbereitung/upstream/LICENSE.python.txt",
+      "scope": "K_core",
+      "sha256": "e52f804e74f0fbd34e8927962319df346166b8194094309a0aee318693df44df",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "versuch/vorbereitung/upstream/tests.toml",
+      "scope": "K_core",
+      "sha256": "ef5317b81f9fb42ef8d336167c8786597ae21db5e940988d476bed1229279c46",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "versuch/vorbereitung/ursprungsnachweis.json",
+      "scope": "K_core",
+      "sha256": "03c6b4f41272292aa598a33252fe3cdf180adf8e8221acfea06b2465af95635a",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "chapters/04_methodik.tex",
+      "scope": "V_preparation",
+      "sha256": "4b5dc5efbbd1f5e56a5d08a3df92fdd0c48d7bb34d1541e296ce966c64feacaa",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "versuch/vorbereitung/befunde.csv",
+      "scope": "V_preparation",
+      "sha256": "5a8910dccb9a913095030756f6ccb4679a3546af4b306d11dc1a5f61c8b47a7b",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "versuch/vorbereitung/durchlaeufe.csv",
+      "scope": "V_preparation",
+      "sha256": "59cda181c5acc87f5053a2e23b54dd7ac4f92d42db043c1aa04fe897ecc7286b",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "versuch/vorbereitung/PRODUKTSTAND.md",
+      "scope": "V_preparation",
+      "sha256": "ed0c57c4c71bd62f9845b7cee3e1b62bfb6d0f3e92af5d279a2beee9b2b3ea3c",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "versuch/vorbereitung/PROMPT.txt",
+      "scope": "V_preparation",
+      "sha256": "ca886ff09ef142bb4e7cf772db621756bf29fcf826f7907509d0858a2a8264bf",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "versuch/vorbereitung/PROTOKOLL.md",
+      "scope": "V_preparation",
+      "sha256": "bb30ea2b59362085084718bf8efcd37c3655e399b167fb8f3f6619d0a11adc90",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "versuch/vorbereitung/zeitintervalle.csv",
+      "scope": "V_preparation",
+      "sha256": "73dd5f2b2ad163358be12272bf2065ecca73019e449e4cae7c98cf160c28edc6",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "versuch/vorbereitung/FIXIERUNG.md",
+      "scope": "administration_or_previous_snapshot",
+      "sha256": "b55e72b0a8cd303b3d560d2c79c1bcc838b6c5462edef8acb17181af0747be86",
+      "commit_match": true,
+      "working_copy_match": true
+    },
+    {
+      "path": "versuch/vorbereitung/vorbereitungsstand.sha256.json",
+      "scope": "administration_or_previous_snapshot",
+      "sha256": "c527fcd49a0f6b8f94f0e75f5a84f430915e6a8d8face44e1c671ba3a3f6f495",
+      "commit_match": true,
+      "working_copy_match": true
+    }
+  ],
+  "conclusion": "48/48 bytegleich in vorhandenem Commit und Arbeitsbaum; K-Kern unverändert. Nachweis vor zusätzlicher Werkzeugwahl; keine unabhängige Zeitbeglaubigung. Historisches Manifest unverändert."
+}

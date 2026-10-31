@@ -1,0 +1,74 @@
+{
+  "A1": {
+    "hourly_eur": null,
+    "wait_binding": null,
+    "common_eur": null,
+    "allocated_license_eur": null,
+    "variable_usage_eur": null,
+    "unmeasured_work_min": null,
+    "rework_min": null,
+    "maintenance_min": null,
+    "basis_and_boundary": null,
+    "maintenance_horizon": null
+  },
+  "B1": {
+    "hourly_eur": null,
+    "wait_binding": null,
+    "common_eur": null,
+    "allocated_license_eur": null,
+    "variable_usage_eur": null,
+    "unmeasured_work_min": null,
+    "rework_min": null,
+    "maintenance_min": null,
+    "basis_and_boundary": null,
+    "maintenance_horizon": null
+  },
+  "A2": {
+    "hourly_eur": null,
+    "wait_binding": null,
+    "common_eur": null,
+    "allocated_license_eur": null,
+    "variable_usage_eur": null,
+    "unmeasured_work_min": null,
+    "rework_min": null,
+    "maintenance_min": null,
+    "basis_and_boundary": null,
+    "maintenance_horizon": null
+  },
+  "B2": {
+    "hourly_eur": null,
+    "wait_binding": null,
+    "common_eur": null,
+    "allocated_license_eur": null,
+    "variable_usage_eur": null,
+    "unmeasured_work_min": null,
+    "rework_min": null,
+    "maintenance_min": null,
+    "basis_and_boundary": null,
+    "maintenance_horizon": null
+  },
+  "A3": {
+    "hourly_eur": null,
+    "wait_binding": null,
+    "common_eur": null,
+    "allocated_license_eur": null,
+    "variable_usage_eur": null,
+    "unmeasured_work_min": null,
+    "rework_min": null,
+    "maintenance_min": null,
+    "basis_and_boundary": null,
+    "maintenance_horizon": null
+  },
+  "B3": {
+    "hourly_eur": null,
+    "wait_binding": null,
+    "common_eur": null,
+    "allocated_license_eur": null,
+    "variable_usage_eur": null,
+    "unmeasured_work_min": null,
+    "rework_min": null,
+    "maintenance_min": null,
+    "basis_and_boundary": null,
+    "maintenance_horizon": null
+  }
+}

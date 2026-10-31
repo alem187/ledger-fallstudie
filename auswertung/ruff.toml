@@ -1,0 +1,12 @@
+target-version = "py313"
+preview = false
+fix = false
+unsafe-fixes = false
+exclude = []
+respect-gitignore = false
+
+[lint]
+select = ["F"]
+ignore = []
+fixable = []
+unfixable = ["ALL"]

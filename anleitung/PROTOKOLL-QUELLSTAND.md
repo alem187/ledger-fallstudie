@@ -1,10 +1,16 @@
 # Protokoll für sechs einmalige Ledger-Refactorings
 
-Fassung V-Vorbereitung 0.2, 31. Oktober 2026. **Noch nicht startbereit. Keine Anfrage ausgeführt.**
-Bezug: Aufgabenvertrag AV 1.0 und vorbereiteter Kriterienstand K-1.0.
-Die offenen Startvoraussetzungen stehen am Ende. K ist noch nicht durch
-einen versionierten Nachweis fixiert; zusätzliche Analysewerkzeuge bleiben
-deshalb ungewählt. Kein früherer Vorbereitungscommit wird als Freeze umgedeutet.
+Fassung V-Vorbereitung 1.0, 31. Oktober 2026. **Keine Anfrage ausgeführt.**
+Durchführung am Arbeits-Mac mit Copilot Business, technische Auswertung am
+Windows-PC. Geplant A Claude Opus 5.5, B GPT-6 Astra; tatsächliche Namen,
+Verfügbarkeit und Optionen bleiben am Mac vor A1 zu bestätigen. Fable entfällt.
+
+K-Kern in Commit `c9204cd861773b17fc3a55b53bf95a6c90e2ccda` nachgewiesen:
+48/48 Manifestdateien bytegleich geprüft, Nachweis `K-VERSIONSNACHWEIS.json`
+vor zusätzlicher Werkzeugwahl. Historisches Manifest unverändert. Keine
+unabhängige Zeitbeglaubigung oder unabhängige Kriterienvalidierung behauptet.
+Werkzeugstand W-1.0 steht in `../auswertung/`; tatsächliche Mac-Angaben und
+abschließende Fixierung V bleiben vor der ersten Anfrage erforderlich.
 
 ## Design und Zuordnung
 
@@ -172,36 +178,38 @@ F02 führt P01–P04 als manuelle Herleitung aus; keine neuen automatisierten
 Tests, keine zusätzlichen LLM-Anfragen zur Prüfung und keine Codeänderung.
 Ein unklarer Codepfad wird nicht durch eine günstigere Ersatzfassung aufgelöst.
 
-## Nach K-Nachweis auszufüllende Werkzeugfestlegung
+## Werkzeugstand W-1.0 nach K-Nachweis
 
-Vor K-Nachweis bleibt diese Tabelle offen. Sie ist ein Anforderungskatalog
-für die spätere Auswahl, keine verdeckte Festlegung eines Analyseprodukts.
+Vollständige Auswahl, Konfiguration, Regeln und Kommandos:
+`../auswertung/AUSWERTUNG.md`, `environment.json`, `ruff.toml`,
+`ruff-rules.json`, `WERKZEUGSTAND.json`. Python 3.13.14/Windows,
+elf unveränderte unittest-Tests, Ruff 0.14.14 mit Pyflakes-Familie F,
+ast/tokenize-Zählungen exakt nach K-1.0. Je Prozess 60 Sekunden Limit.
+Keine Fixes, keine ausgabenspezifischen Ausschlüsse oder neuen Ledger-Tests.
+Gleiche Prüfkommandos für BASE/A1/B1/A2/B2/A3/B3. Rohberichte mit Hashes,
+Exitstatus und Fehlwertgründen; manuelle Kriterien bleiben eigenständig.
+Keine Komplexitäts-, Coverage-, Schuld- oder Siegerkennzahl ergänzt.
 
-| Bereich | Vor Stand V zwingend einzutragen | Aktueller Stand |
-|---|---|---|
-| Prüfumgebung/F01 | Python-Build, Betriebssystem, Abhängigkeiten, exakter Aufruf, isolierter Arbeitsordner, 60-s-Limit und Berichtablage | Vorhandene elf Tests gesichert; endgültige Umgebung offen |
-| S03 | Produkt/Version, vollständiger Regelsatz, Konfiguration samt Hash, Ausschlüsse, Aufruf, Limit, Exitstatus-/Fehlerbehandlung; Abgleich mit S03 statt Auswahl nach Baseline-Fundzahl | nicht ausgewählt |
-| U01/U02 | Umsetzung der festgelegten Byte-/Text-/Syntaxzählung, Parser-/Tokenisiererversion, Definitionsexport, Aufruf, Limit, Fehlwertbehandlung | Definitionen in K-1.0; Implementierung nicht ausgewählt |
-| Alle Berichte | Gleiche Kommandos/Regeln für BASE und sechs Ausgaben, vollständige Rohberichte und Hashzuordnung | vor V nachzuweisen |
+## Reasoning und Kontext vor A1
 
-Keine zusätzliche Komplexitäts-, Coverage- oder Schuldkennzahl in die
-Auswertung aufnehmen, solange sie kein im Kriterienstand definiertes
-Verfahren hat. Verzicht wird als nicht erhoben dokumentiert; spätere
-Werkzeugauswahl darf keine neuen Kriterien hinzufügen.
+Gemeinsame ausdrücklich verfügbare Reasoning-Stufe für beide Modelle
+vorab gleich wählen; sonst je Modell unveränderte Standardoption samt
+Asymmetrie dokumentieren. Keine Auswahl nach Antworten. Gleicher Wortlaut
+belegt kein gleiches Rechenbudget. Kontrollierbare Zusatzanweisungen,
+Memory und Skills gleich ausschließen, Organisationsvorgaben nicht umgehen.
+Nicht einsehbare Einflüsse offenlegen; bei unvereinbarer Kontextbedingung
+vor A1 klären. Vier explizite Dateien, keine zusätzliche Selektion.
 
 ## Vor dem ersten Durchlauf noch erforderlich
 
-1. AV 1.0 und inhaltlich vorbereiteten K-1.0 unverändert als versionierten
-   ersten Fixierungsstand nachweisen (`FIXIERUNG.md`); kein solcher Nachweis vorhanden.
-2. Prüfsummen des K-Pakets gegen den versionierten Nachweis prüfen.
-3. Danach Analysewerkzeuge, Versionen, Regelsätze, Syntaxzählung und
-   identische Prüfkommandos festlegen; keine Regeln anhand von Ausgaben ändern.
-4. Persönlichen Tarif, explizite Modellwahl A/B im gleichen Ask-Modus und
-   tatsächliche Kontext-/Anweisungseinstellungen in VS Code prüfen.
-5. Verbrauchsanzeige und Zeitmessverfahren auf Ablesbarkeit kontrollieren,
-   ohne eine der Versuchsmodell-Anfragen zur Erprobung zu senden.
-6. Den vollständigen zweiten Fixierungsstand einschließlich Prompt- und
-   Kontext-Hashes vor dem ersten Absenden dokumentieren.
+1. Paket- und K-/W-Hashes prüfen; Kriterienkern nicht ändern.
+2. Am Arbeits-Mac Business-Zugang, Ask, zwei explizite Modelle und tatsächliche
+   Versionen/Einstellungen nachweisen; keine frühere PC-Anzeige übernehmen.
+3. Kontext-/Anweisungseinflüsse und Reasoning nach obiger Regel dokumentieren.
+4. Credit-Anzeige/Auflösung/Verzug und Zeitmessung ohne Probe-Anfrage prüfen.
+5. Vorabnachweise und vollständige V-MAC.json ergänzen, über paket.py seal
+   als V-FIXIERT.json sichern und vor A1 separat datiert aufbewahren.
 
-Die ausgearbeiteten Vorlagen sind keine Startfreigabe und kein Nachweis,
-dass diese Voraussetzungen bereits erfüllt sind.
+Schrittfolge und Slotformulare sind im separaten Hilfspaket vorbereitet.
+Lokale Hashfixierung ersetzt keine unabhängige Zeitbeglaubigung. Noch offene
+Mac-Angaben sind keine gemessenen Werte. Keine Startbehauptung aus einem Build.
